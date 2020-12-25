@@ -11,13 +11,13 @@ namespace TwitterClone.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
         private readonly TwitterContext db;
 
         public HomeController(ILogger<HomeController> logger, TwitterContext context)
         {
-            _logger = logger;
-            db = context;
+            this.logger = logger;
+            this.db = context;
         }
 
         public IActionResult Index()
@@ -30,24 +30,61 @@ namespace TwitterClone.Controllers
             return View();
         }
 
-        public IActionResult RegistrarUsuario(string mail, string nombre, string username, string password, string claveadmin)
+        public IActionResult Register()
         {
-            User userCheck = db.Users.FirstOrDefault(u => u.Mail.Equals(mail) || u.Username.ToLower().Equals(username.ToLower()));
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult UserLogin(string email, string password)
+        {
+            User userCheckLogged = HttpContext.Session.Get<User>("UsuarioLogueado");
+
+            if(userCheckLogged == null)
+            {
+                userCheckLogged  = db.Users.FirstOrDefault(u => u.Mail.Equals(email));
+                if(userCheckLogged != null && userCheckLogged.Password.Equals(password))
+                {
+                    HttpContext.Session.Set<User>("UsuarioLogueado", userCheckLogged);
+                    return View("Index");
+                }
+                else
+                {
+                    ViewBag.errorCredenciales = true;
+                    return View("Login");
+                }
+            }
+            else
+            {
+                return View("Index");
+            }
+        }
+
+        public IActionResult UserRegister(string email, string name, string username, string password, string country, string city)
+        {
+            User userCheck = db.Users.FirstOrDefault(u => u.Mail.Equals(email) || u.Username.ToLower().Equals(username.ToLower()));
 
             if(userCheck == null){
                 User newUser = new User{
-                Mail = mail,
-                Nombre = nombre,
+                Mail = email,
                 Username = username,
                 Password = password,
-                Rol = rol
+                Name = name,
+                Country = country,
+                City = city
             };
 
-            db.Usuarios.Add(nuevoUsuario);
+            db.Users.Add(newUser);
             db.SaveChanges();
             return View("Login");
 
-            }else{
+            }
+            else
+            {
                 ViewBag.existeUsuario = true;
                 return View("Register");
             }   

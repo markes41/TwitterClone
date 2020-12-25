@@ -1,0 +1,17 @@
+@{
+    bool errorCredenciales = (ViewBag.errorCredenciales != null);
+}
+
+<form action="@Url.Action("UserLogin", "Home")" method="POST" class="form1">
+    @if(errorCredenciales)
+    {
+        <p class="error-credenciales">El usuario y/o contraseña que ingresaste son incorrectos.</p>
+    }
+    <div class="form-group">
+        <input type="email" class="un " name="email" placeholder="Correo electrónico" align="center" required/>
+    </div>
+    <div class="form-group">
+        <input type="password" class="pass" name="password" placeholder="Password"/>
+    </div>
+    <button type="submit" class="submit" align="center">Login</button>
+</form>
