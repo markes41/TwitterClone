@@ -1,17 +1,39 @@
+@section Styles{
+    <link rel="stylesheet" href="~/css/login.css"/>
+}
+
 @{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutWithoutHeader.cshtml";
     bool errorCredenciales = (ViewBag.errorCredenciales != null);
 }
+
+
+<div class="header-login">
+    <i class="fab fa-twitter"></i>
+    <h4>Iniciar sesión en Twitter Clone</h2>
+</div>
 
 <form action="@Url.Action("UserLogin", "Home")" method="POST" class="form1">
     @if(errorCredenciales)
     {
         <p class="error-credenciales">El usuario y/o contraseña que ingresaste son incorrectos.</p>
     }
-    <div class="form-group">
-        <input type="email" class="un " name="email" placeholder="Correo electrónico" align="center" required/>
+    
+    <div class="username-content" id="user">
+        <p>Teléfono, correo o usuario</p>
+        <input type="email" name="email" align="center" required/>
     </div>
-    <div class="form-group">
-        <input type="password" class="pass" name="password" placeholder="Password"/>
+
+    <div class="password-content" id="password">
+        <p>Contraseña</p>
+        <input type="password" name="password" required/>
     </div>
-    <button type="submit" class="submit" align="center">Login</button>
+
+    <button type="submit" class="submit" align="center">Iniciar sesión</button>
 </form>
+
+<div class="aux-text">
+    <a href="#">¿Olvidaste tu contraseña?</a>
+    <a href="/home/register">Regístrate en Twitter Clone</a>
+</div>

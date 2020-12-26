@@ -1,4 +1,17 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function(){
+    $('.username-content').on('click', function(){
+        $('#user').addClass('content-clicked');
+        $('#password').removeClass('content-clicked');
+    });
 
-// Write your JavaScript code.
+    $('.password-content').on('click', function(){
+        $('#password').addClass('content-clicked');
+        $('#user').removeClass('content-clicked');
+    });
+
+    $('.submit').on('click', function(){
+        $('#user').removeClass('content-clicked');
+        $('#password').removeClass('content-clicked');
+    });
+
+});

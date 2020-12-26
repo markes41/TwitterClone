@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutWithoutHeader.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="text-information">
+            
+            <p><i class="fas fa-search"></i>Sigue lo que te interesa.</p>
+            <p><i class="fas fa-user-friends"></i>Entérate de qué está hablando la gente.</p>
+            <p><i class="far fa-comment"></i>Únete a la conversación</p>
+        </div>
+    </div>
+
+    <div class="col-md-6 options">
+        <div class="text-options">
+            <i class="fab fa-twitter"></i>
+            <h2>Mirá lo que está pasando en el mundo en este momento</h2>
+            <p>Únete a Twitter Clone hoy mismo.</p>
+            <div class="options-buttons">
+                <a href="" class="register-button">Regístrate</a>
+                <a href="/home/Login" class="login-button">Iniciar sesión</a>
+            </div>
+        </div>
+    </div>
 </div>
+
