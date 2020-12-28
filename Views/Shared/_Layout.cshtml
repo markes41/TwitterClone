@@ -4,40 +4,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] / TwitterClone</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://kit.fontawesome.com/46e18bb4ff.js" crossorigin="anonymous"></script>
     @RenderSection("Styles", required: false)
 </head>
 <body>
+<div class="display-flex">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TwitterClone</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+            <img src="TwitterLogo.png" class="twitter-icon" alt="">
+            <div class="nav-left" style="width: 6rem;">
+                <img src="~/img/icons/home.png" class="icons" alt="">
+                <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Inicio">Inicio</a>
             </div>
-        </nav>
+        
+            <div class="nav-left" style="width: 11rem;">
+                <img src="~/img/icons/notifications.png" class="icons" alt="">
+                <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Inicio"> Notificaciones</a>
+            </div>
+        
+            <div class="nav-left" style="width: 8.5rem;">
+                <img src="~/img/icons/private.png" class="icons" alt="">
+                <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Inicio">Mensajes</a>
+            </div>
+        
+            <div class="nav-left aux-margin" style="width: 6rem;">
+                <img src="~/img/icons/profile.png" class="icons" alt="">
+                <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Inicio">Perfil</a>
+            </div>
+            <a class="tweet-button-left">Twittear</a>
     </header>
 
-        <main role="main">
-            @RenderBody()
-        </main>
-
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

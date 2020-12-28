@@ -14,4 +14,20 @@
         $('#password').removeClass('content-clicked');
     });
 
+    $('.contact-email').hide();
+        
+    $('.contact-phone-section').on('click', function(){
+        $('.contact-phone').hide();
+        $('.contact-email').show();
+        $('.contact-value').text('Correo electrónico');
+        $('#contact-type').get(0).type = 'email';
+    });
+
+    $('.contact-email-section').on('click', function(){
+        $('.contact-email').hide();
+        $('.contact-phone').show();
+        $('.contact-value').text('Teléfono');
+        $('#contact-type').get(0).type = 'tel';
+    });
+
 });

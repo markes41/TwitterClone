@@ -1,0 +1,275 @@
+.icons{
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+.twitter-icon{
+    width: auto;
+    height: 25px;
+    filter: brightness(0) invert(1);
+    margin-top: 1rem;
+    margin-left: .7rem;
+}
+
+header{
+    padding: 0 2.6rem 0 6rem;
+    position: fixed;
+      
+}
+
+.nav-left{
+    display: flex;
+    align-items: center;
+    margin: 1.3rem 0;
+    padding: .8rem;
+    border-radius: 25px;
+}
+
+.nav-left:hover{
+    background-color: rgb(22, 45, 64);
+}
+
+.aux-margin{
+    margin-bottom: 2rem;
+}
+
+.section-layout{
+    margin-left: 10px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.section-layout:hover{
+    color: rgb(27, 135, 201);
+}
+
+
+.display-flex{
+    display: flex;
+}
+
+.home{
+    border: rgb(56, 68, 77);
+    border-top-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-bottom-style: none;
+    border-width: .05rem;
+    margin-top: -25px;
+    margin-bottom: -25px;
+}
+
+.home p{
+    margin: 1rem 0 .7rem 1rem;
+    font-size: 1.15rem;
+    padding: 1rem 0 1.5rem 0;
+    font-weight: 800;
+    letter-spacing: -.03rem;
+    color: #fff;
+}
+
+.dot-new-tweet {
+    height: 49px;
+    width: 49px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    top: -30px;
+}
+
+.new-tweet{
+    border: rgb(56, 68, 77);
+    border-style: solid;
+    border-width: .05rem;
+    display: block;
+    height: 115px;
+    padding: .8rem;
+}
+
+textarea{
+    font-family: "Neue Helvetica", sans-serif;
+    resize: none;
+    outline: none;
+    height: 50px;
+    width: 28rem;
+    background-color: rgb(21, 32, 43);
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.tweet-button{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    background-color: rgb(29, 161, 242);
+    padding: .6rem .9rem;
+    border-radius: 35px;
+    margin-top: 1rem;
+    margin-left: 25.3rem;
+}
+
+.tweet-button-left{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 1000;
+    font-size: .9rem;
+    background-color: rgb(29, 161, 242);
+    padding: 1.1rem 5.2rem;
+    border-radius: 35px;
+}
+
+.tweet-button:hover{
+    background-color: rgb(25, 145, 218);
+}
+
+.line{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid rgb(56, 68, 77);
+    margin-bottom: 1.3rem;
+    margin-top: -5px;
+    padding: 0;
+    width: 27.6rem;
+    position: relative;
+    left: 24px;
+    
+}
+
+.dot-tweet{
+    height: 49px;
+    width: 49px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: .8rem;
+    
+}
+
+.tweet-container{
+    display: flex;
+    border: rgb(56, 68, 77);
+    border-top-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-width: .05rem;
+    padding: 0 0 .4rem .75rem;
+    height: auto;
+    
+}
+
+.tweet-container:hover{
+    background-color: rgb(28, 39, 50);
+    transition: .2s linear;
+}
+
+.tweet-container p{
+    max-width: 28rem;
+    margin-left: .8rem;
+    margin-bottom: -8px;
+    color: #fff;
+}
+
+.user-tweet-details{
+    display: flex;
+    margin-bottom: 0;
+}
+.user-tweet-details p:first-child{
+    font-weight: 1000;
+    margin-top: 12px;
+}
+
+.user-tweet-details p:last-child{
+    margin-left: 8px;
+    color: rgb(126, 133, 139);
+}
+
+.cm-rt-mg{
+    display: flex;
+    justify-content: space-between;
+    width: 15rem;
+    margin-top: 1rem;
+    margin-left: .7rem;
+}
+
+.cm-rt-mg img{
+    width: 20px;
+    height: 20px;
+}
+.retweet-icon{
+    position: relative;
+    display: inline-block;
+}
+
+.retweet-icon .hover-retweet{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.retweet-icon:hover .hover-retweet {
+    display: inline;
+    background-color: rgb(21, 48, 49);
+    border-radius: 35px;
+    padding: 7px;
+    top: -7px;
+    left: -7px;
+}
+
+.comment-icon{
+    position: relative;
+    display: inline-block;
+}
+
+.comment-icon .hover-comment{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.comment-icon:hover .hover-comment {
+    display: inline;
+    background-color: rgb(28, 51, 70);
+    border-radius: 35px;
+    padding: 7px;
+    top: -7px;
+    left: -7px;
+}
+
+.like-icon{
+    position: relative;
+    display: inline-block;
+}
+
+.like-icon .hover-like{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.like-icon:hover .hover-like {
+    display: inline;
+    background-color: rgb(48, 39, 55);
+    border-radius: 35px;
+    padding: 7px;
+    top: -7px;
+    left: -7px;
+}
+
+.container-main{
+    margin-left: 24rem;
+}

@@ -1,0 +1,135 @@
+body{
+    background-color: rgb(49, 64, 78);
+    color: #fff;
+}
+
+.square-information{
+    width: 600px;
+    height: 650px;
+    background-color: rgb(21, 32, 43);
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
+.square-information h2{
+    margin-left: 2rem;
+}
+
+
+.header-square img{
+    width: 50px;
+    height: 50px;
+    margin-left: 46%;
+    margin-top: .5rem;
+    text-align: center;
+}
+
+.next-button{
+    text-decoration: none;
+    font-weight: 1000;
+    color: #fff;
+    background-color: rgb(29, 161, 242);
+    padding: .7rem 2rem;
+    border-radius: 35px;
+    margin-left: 38%;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.next-button:hover{
+    background-color: rgb(25, 145, 218);
+}
+
+.username-content, .contact-content, .password-content{
+    border: rgba(170, 168, 168, .3);
+    border-style: solid;
+    border-width: 1px;
+    margin: 1rem 2rem;
+    border-radius: 5px;
+    padding: .5rem 0;
+}
+
+.username-content p, .contact-content p, .password-content p{
+    padding: 4px;
+    margin: 0;
+    color: rgba(170, 168, 168, .8);
+    font-size: 15px;
+}
+
+input{
+    background-color: rgb(21, 32, 43);
+    outline: none;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+}
+
+.contact-phone-section, .contact-email-section{
+    width: 10rem;
+}
+
+.contact-phone, .contact-email{
+    text-decoration: none;
+    margin-left: 2rem;
+    color: rgb(27, 149, 224);
+}
+
+.contact-phone:hover, .contact-email:hover{
+    text-decoration: underline;
+}
+
+.date{
+    margin-left: 2rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+.date-advise{
+    margin-left: 2rem;
+    font-size: .9rem;
+    margin-top: -12px;
+    color: rgba(170, 168, 168, .8);
+}
+
+.select-birthday{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    margin-bottom: 3rem;
+}
+
+.month, .day, .year{
+    width: 13rem;
+    background-color: rgb(21, 32, 43);
+    border: none;
+    outline: none;
+    height: 3rem;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.day{
+    width: 7rem;
+}
+
+.year{
+    width: 9rem;
+}
+
+.password-section{
+    display: flex;
+}
+
+.password-content{
+    width: 15rem;
+}
+
+.password-content input{
+    width: 14rem;
+}
+
+.username-content input, .contact-content input{
+    width: 33rem;
+}

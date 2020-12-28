@@ -1,6 +1,7 @@
 ﻿body{
   font-family: 'Neue Helvetica', sans-serif;
-  background-color: rgb(21, 32, 43)
+  background-color: rgb(21, 32, 43);
+  margin: 0;
 }
 
 .text-information{
@@ -8,8 +9,9 @@
   font-weight: 600;
   color: #fff;
   align-items: center;
-  width: 100%;
   padding: 10.7rem 0;
+  width: 43rem;
+  height: 26rem;
 }
 
 .text-information p{
@@ -43,7 +45,7 @@
 .register-button{
   color: #fff;
   background-color: rgb(29, 161, 242);
-  width: 100%;
+  width: auto;
   justify-content: center;
   padding: 8px 0;
   border-radius: 25px;
@@ -62,7 +64,7 @@
   border: rgb(29, 161, 210);
   border-style: solid;
   border-width: 1px;
-  width: 100%;
+  width: auto;
   justify-content: center;
   padding: 8px 0;
   border-radius: 25px;
@@ -79,4 +81,9 @@
 .fa-twitter{
   font-size: 2rem;
   margin-bottom: 1.5rem;
+}
+
+.container{
+  display: flex;
+  
 }

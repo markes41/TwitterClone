@@ -46,11 +46,11 @@ namespace TwitterClone.Controllers
 
             if(userCheckLogged == null)
             {
-                userCheckLogged  = db.Users.FirstOrDefault(u => u.Mail.Equals(email));
+                userCheckLogged  = db.Users.FirstOrDefault(u => u.Contact.Equals(email));
                 if(userCheckLogged != null && userCheckLogged.Password.Equals(password))
                 {
                     HttpContext.Session.Set<User>("UsuarioLogueado", userCheckLogged);
-                    return View("Index");
+                    return RedirectToAction("Inicio", "Start");
                 }
                 else
                 {
@@ -60,22 +60,34 @@ namespace TwitterClone.Controllers
             }
             else
             {
-                return View("Index");
+                return RedirectToAction("Inicio", "Start");
             }
         }
 
-        public IActionResult UserRegister(string email, string name, string username, string password, string country, string city)
+        public IActionResult NewTweet(string content, string creator)
         {
-            User userCheck = db.Users.FirstOrDefault(u => u.Mail.Equals(email) || u.Username.ToLower().Equals(username.ToLower()));
+            Tweet tweet = new Tweet{
+                Content = content,
+                UserCreator = creator,
+                Date = DateTime.Now
+            };
+            db.Tweets.Add(tweet);
+            db.SaveChanges();
+            return Json(tweet);
+        }
+
+        public IActionResult UserRegister(string contact, string username, string password, string month, string day, string year)
+        {
+            User userCheck = db.Users.FirstOrDefault(u => u.Contact.Equals(contact) || u.Username.ToLower().Equals(username.ToLower()));
 
             if(userCheck == null){
                 User newUser = new User{
-                Mail = email,
+                Contact = contact,
                 Username = username,
                 Password = password,
-                Name = name,
-                Country = country,
-                City = city
+                Month = month,
+                Day = day,
+                Year = year
             };
 
             db.Users.Add(newUser);
