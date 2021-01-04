@@ -15,194 +15,38 @@
             <input type="submit" class="tweet-button" value="Twittear">
         </div>
 
-        <div class="tweet-container">
 
-            <!--@if(@Model.Count > 0)
-            {
-                @foreach (Tweet tweet in Model)
+                @foreach (Tweet tweets in Model)
                 {
-                    <p>@tweet.Content</p>
-                    <p></p>
+                    <div class="tweet-container">
+                        <span class="dot-tweet"></span>
+                        <div class="text-tweet-container">
+                            <div class="user-tweet-details">
+                                <p>Mike Luca</p>
+                                <p>@tweets.Owner.Username</p>
+                                <p>15:25</p>
+                            </div>
+                            <p>@tweets.Content</p>
+                            <div class="cm-rt-mg">
+                                <div class="comment-icon">
+                                    <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
+                                    <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
+                                    <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                </div>
+                                <div class="retweet-icon">
+                                    <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
+                                    <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
+                                    <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                </div>
+                                <div class="like-icon">
+                                    <a href=""><img src="~/img/icons/like.png" alt=""></a>
+                                    <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
+                                    <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 }
-            }
-            else
-            {
-                <h1>Aún no twitteaste nada</h1>
-            }-->
 
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                    <p>15:25</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tweet-container">
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tweet-container">
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tweet-container">
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tweet-container">
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tweet-container">
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tweet-container">
-            <span class="dot-tweet"></span>
-            <div class="text-tweet-container">
-                <div class="user-tweet-details">
-                    <p>Mike Luca</p>
-                    <p>MikeLuka7</p>
-                </div>
-                <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
-                <div class="cm-rt-mg">
-                    <div class="comment-icon">
-                        <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                        <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                    </div>
-                    <div class="retweet-icon">
-                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                    </div>
-                    <div class="like-icon">
-                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
     </div>

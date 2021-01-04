@@ -25,17 +25,28 @@ namespace TwitterClone.Controllers
         public IActionResult Inicio()
         {
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
-            User creatorToAdd;
             if(userInSession != null)
             {
+                User creatorToAdd = db.Users.Include(u => u.Tweets).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+                List<User> test = new List<User>();
 
-                creatorToAdd = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-                return View(creatorToAdd.Tweets.ToList());
+                for (int i = 0; i < creatorToAdd.Following.Count(); i++)
+                {
+                    test.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
+                }
+                
+                test.Add(creatorToAdd);
+                List<Tweet> tweets = new List<Tweet>();
+                for (int i = 0; i < test.Count(); i++)
+                {
+                    tweets.AddRange(test[i].Tweets);
+                }
+                
+                return View(tweets.ToList());
             }
             else
             {
-                creatorToAdd = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-                return View(creatorToAdd.Tweets.ToList());
+                return RedirectToAction("Login", "Home");
             }
             
         }
@@ -136,7 +147,7 @@ namespace TwitterClone.Controllers
 
                 if(userProfile != null && userAddFollow != null)
                 {
-                    //ADD THE FOLLOW TO userAddFollow
+                    //ADD THE FOLLOWING TO userAddFollow
                     userAddFollow.Following.Add(userProfile);
                     db.Users.Update(userAddFollow);
                 
