@@ -17,7 +17,7 @@ namespace TwitterClone.Models
         public string Day { get; set; }
         public string Year { get; set; }
         public List<Tweet> Tweets { get; set; }
-        public List<User> Seguidores { get; set; }
-        public List<User> Seguidos { get; set; }
+        public List<User> Followers { get; set; }
+        public List<User> Following { get; set; }
     }
 }

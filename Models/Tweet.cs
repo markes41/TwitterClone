@@ -12,6 +12,5 @@ namespace TwitterClone.Models
         public long TweetID { get; set; }
         public string Content { get; set; }
         public User Owner { get; set; }
-        public int Comments { get; set; }
     }
 }

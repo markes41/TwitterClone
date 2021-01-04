@@ -131,11 +131,23 @@ namespace TwitterClone.Controllers
 
             if(userInSession != null)
             {
-                User userProfile = db.Users.FirstOrDefault(u => u.Mail.Equals(ID));
+                User userProfile = db.Users.Include(u => u.Followers).FirstOrDefault(u => u.Mail.Equals(ID));
+                User userAddFollow = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+                if(userProfile != null && userAddFollow != null)
+                {
+                    //ADD THE FOLLOW TO userAddFollow
+                    userAddFollow.Following.Add(userProfile);
+                    db.Users.Update(userAddFollow);
                 
-                userInSession.Seguidos.Add(userProfile);
-                db.Users.Update(userInSession);
-                db.SaveChanges();
+                    //ADD THE FOLLOWER TO userProfile
+                    userProfile.Followers.Add(userAddFollow);
+                    db.Users.Update(userProfile);
+
+                    //SAVE THE NEW VALUES IN THE DB
+                    db.SaveChanges();
+                }
+                
             }
         }
 
