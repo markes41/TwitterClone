@@ -6,10 +6,10 @@
 
 .twitter-icon{
     width: auto;
-    height: 25px;
+    height: 50px;
     filter: brightness(0) invert(1);
     margin-top: 1rem;
-    margin-left: .7rem;
+    margin-bottom: -15px;
 }
 
 header{
@@ -106,13 +106,16 @@ textarea{
 
 .tweet-button{
     text-decoration: none;
+    border: none;
     color: #fff;
     font-weight: bold;
     background-color: rgb(29, 161, 242);
-    padding: .6rem .9rem;
+    padding: .7rem 1.3rem;
     border-radius: 35px;
-    margin-top: 1rem;
+    margin-top: -15px;
     margin-left: 25.3rem;
+    outline: none;
+    cursor: pointer;
 }
 
 .tweet-button-left{
@@ -187,7 +190,7 @@ textarea{
     margin-top: 12px;
 }
 
-.user-tweet-details p:last-child{
+.user-tweet-details p:nth-child(2), .user-tweet-details p:nth-child(3){
     margin-left: 8px;
     color: rgb(126, 133, 139);
 }
@@ -272,4 +275,99 @@ textarea{
 
 .container-main{
     margin-left: 24rem;
+}
+
+.profile-specs{
+    border: rgb(56, 68, 77);
+    border-style: solid;
+    border-width: .05rem;
+    display: block;
+    width: 100%;
+}
+
+.profile-picture{
+    width: 134px;
+    height: 134px;
+    border: rgb(56, 68, 77);
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 100px;
+    position: absolute;
+    top: 175px;
+    margin-left: .6rem;
+}
+
+.cover-page-profile{
+    background-image: url("https://i.pinimg.com/originals/63/b0/e2/63b0e2f99407065a838782915c6b6d8e.jpg");
+    height: 200px;
+    background-size: cover;
+    margin-bottom: 1.4rem;
+}
+
+.profile-edit-btn{
+    text-decoration: none;
+    color: rgb(29, 161, 242);
+    margin-left: 24.5rem;
+    padding: .7rem;
+    border: rgb(29, 161, 242);
+    border-style: solid;
+    border-width: 1.8px;
+    border-radius: 100px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.profile-edit-btn:hover{
+    background-color: rgb(22, 45, 64);
+}
+
+.username{
+    color: rgb(126, 133, 139);
+    font-size: 15px;
+    margin-top: -20px;
+}
+
+.name{
+    color: #fff;
+    font-weight: 1000;
+    font-size: 20px;
+}
+
+.user-specs{
+    padding: .8rem 0 0 .8rem;
+    margin-top: -5px;
+}
+
+.user-dates-text{
+    margin-left: .8rem;
+    font-size: 15px;
+    color: rgb(126, 133, 139);
+}
+
+.fa-birthday-cake, .fa-calendar-alt{
+    margin-right: 7px;
+}
+
+.stats-count{
+    display: flex;
+    margin: -10px 0 0 .8rem;
+}
+
+.follow-text, .followers-text{
+    color: rgb(126, 133, 139);
+}
+
+.follow-text{
+    margin-right: 8px;
+}
+
+.link-follows, .link-followers{
+    display: flex;
+    text-decoration: none;
+}
+
+.quantity-follow, .quantity-followers{
+    color: white;
+    font-weight: 600;
+    margin-right: 4px;
 }

@@ -14,20 +14,68 @@
         $('#password').removeClass('content-clicked');
     });
 
-    $('.contact-email').hide();
-        
-    $('.contact-phone-section').on('click', function(){
-        $('.contact-phone').hide();
-        $('.contact-email').show();
-        $('.contact-value').text('Correo electrónico');
-        $('#contact-type').get(0).type = 'email';
+    $('.tweet-button').on('click', function(){
+        var tweetValue = $('#tweet-text').val();
+        $.ajax({
+            type: 'POST',
+            url: '/start/NewTweet',
+            data: {
+                content: tweetValue
+            },
+            success: function (response) {
+                console.log(response);
+            }
+        });
+        $('#tweet-text').val("");
     });
 
-    $('.contact-email-section').on('click', function(){
-        $('.contact-email').hide();
-        $('.contact-phone').show();
-        $('.contact-value').text('Teléfono');
-        $('#contact-type').get(0).type = 'tel';
+    $('.hover-retweet').on('click', function(){
+        var tweetID = $(this).closest('div[class^=retweet-icon').find('#tweetID').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/start/ToRetweet',
+            data: {
+                ID: tweetID
+            }
+        });
     });
+
+    $('.hover-like').on('click', function(){
+        var tweetID = $(this).closest('div[class^=like-icon').find('#tweetID').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/start/ToRetweet',
+            data: {
+                ID: tweetID
+            }
+        });
+    });
+
+    $('.hover-comment').on('click', function(){
+        var tweetID = $(this).closest('div[class^=comment-icon').find('#tweetID').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/start/ToRetweet',
+            data: {
+                ID: tweetID
+            }
+        });
+    });
+
+    $('#follow-button').on('click', function(){
+        var identificator = $('#userID').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/start/ToFollow',
+            data: {
+                ID: identificator
+            }
+        });
+    });
+
 
 });

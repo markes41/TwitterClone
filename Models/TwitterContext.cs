@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using TwitterClone.Models;
 
 namespace TwitterClone.Models
 {
@@ -9,7 +7,8 @@ namespace TwitterClone.Models
         public TwitterContext(DbContextOptions<TwitterContext> options)
             : base (options)
         { }
-        public DbSet<User> Users { get; set; }
         public DbSet<Tweet> Tweets { get; set; }
+        public DbSet<User> Users { get; set; }
+        
     }
 }

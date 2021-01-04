@@ -2,31 +2,29 @@
 
 namespace TwitterClone.Migrations
 {
-    public partial class v101 : Migration
+    public partial class v104 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tweet_Users_UserMail",
-                table: "Tweet");
+                name: "FK_Tweets_Users_OwnerMail",
+                table: "Tweets");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Tweet",
-                table: "Tweet");
-
-            migrationBuilder.RenameTable(
-                name: "Tweet",
-                newName: "Tweets");
+            migrationBuilder.RenameColumn(
+                name: "OwnerMail",
+                table: "Tweets",
+                newName: "UserMail");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Tweet_UserMail",
+                name: "IX_Tweets_OwnerMail",
                 table: "Tweets",
                 newName: "IX_Tweets_UserMail");
 
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Tweets",
+            migrationBuilder.AddColumn<string>(
+                name: "Owner",
                 table: "Tweets",
-                column: "TweetID");
+                type: "TEXT",
+                nullable: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Tweets_Users_UserMail",
@@ -43,28 +41,24 @@ namespace TwitterClone.Migrations
                 name: "FK_Tweets_Users_UserMail",
                 table: "Tweets");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Tweets",
+            migrationBuilder.DropColumn(
+                name: "Owner",
                 table: "Tweets");
 
-            migrationBuilder.RenameTable(
-                name: "Tweets",
-                newName: "Tweet");
+            migrationBuilder.RenameColumn(
+                name: "UserMail",
+                table: "Tweets",
+                newName: "OwnerMail");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Tweets_UserMail",
-                table: "Tweet",
-                newName: "IX_Tweet_UserMail");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Tweet",
-                table: "Tweet",
-                column: "TweetID");
+                table: "Tweets",
+                newName: "IX_Tweets_OwnerMail");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Tweet_Users_UserMail",
-                table: "Tweet",
-                column: "UserMail",
+                name: "FK_Tweets_Users_OwnerMail",
+                table: "Tweets",
+                column: "OwnerMail",
                 principalTable: "Users",
                 principalColumn: "Mail",
                 onDelete: ReferentialAction.Restrict);

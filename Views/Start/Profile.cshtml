@@ -1,0 +1,82 @@
+@model List<Tweet>
+@section Styles{
+    <link rel="stylesheet" href="~/css/start.css" />
+}
+@{
+    bool showButtonToFollow = (ViewBag.showButtonToFollow != null);
+}
+
+    <div class="container-main">
+        <div class="home">
+            <p>Inicio</p>
+        </div>
+        <div class="profile-specs">
+            <img src="~/img/profile/profile-pic.png" alt="" class="profile-picture">
+            <div class="cover-page-profile">
+                <img src="" alt="">
+            </div>
+            @if(showButtonToFollow)
+            {
+                <a href="" class="profile-edit-btn" id="follow-button">Seguir</a>
+                <input type="hidden" id="userID" value="@ViewBag.ID"/>
+            }
+            else
+            {
+                <a href="" class="profile-edit-btn">Editar perfil</a>
+            }
+            <div class="user-specs">
+                <p class="name">Mark</p>
+                <p class="username">@ViewBag.username</p>
+            </div>
+            <div class="user-dates">
+                <p class="user-dates-text"><i class="fas fa-birthday-cake"></i>Fecha de nacimiento: @ViewBag.day de @ViewBag.month de @ViewBag.year.</p>
+                <p class="user-dates-text"><i class="far fa-calendar-alt"></i>Se unió en abril de 2014</p>
+            </div>
+            <div class="stats-count">
+                <a href="#" class="link-follows">
+                    <p class="quantity-follow">44</p>
+                    <p class="follow-text">Seguidos</p>
+                </a>
+                <a href="" class="link-followers">
+                    <p class="quantity-followers">533</p>
+                    <p class="followers-text">Seguidores</p>
+                </a>
+                
+            </div>
+        </div>
+
+        @foreach (Tweet tweets in Model)
+        {
+            
+            <div class="tweet-container">
+                <span class="dot-tweet"></span>
+                <div class="text-tweet-container">
+                    <div class="user-tweet-details">
+                        <p>Mike Luca</p>
+                        <p>@tweets.Owner.Username</p>
+                        <p>15:25</p>
+                    </div>
+                    <p>@tweets.Content</p>
+                    <div class="cm-rt-mg">
+                        <div class="comment-icon">
+                            <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
+                            <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
+                            <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                        </div>
+                        <div class="retweet-icon">
+                            <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
+                            <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
+                            <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                        </div>
+                        <div class="like-icon">
+                            <a href=""><img src="~/img/icons/like.png" alt=""></a>
+                            <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
+                            <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        }
+    </div>
+</div>

@@ -46,7 +46,7 @@ namespace TwitterClone.Controllers
 
             if(userCheckLogged == null)
             {
-                userCheckLogged  = db.Users.FirstOrDefault(u => u.Contact.Equals(email));
+                userCheckLogged  = db.Users.FirstOrDefault(u => u.Mail.Equals(email));
                 if(userCheckLogged != null && userCheckLogged.Password.Equals(password))
                 {
                     HttpContext.Session.Set<User>("UsuarioLogueado", userCheckLogged);
@@ -64,25 +64,13 @@ namespace TwitterClone.Controllers
             }
         }
 
-        public IActionResult NewTweet(string content, string creator)
+        public IActionResult UserRegister(string mail, string username, string password, string month, string day, string year)
         {
-            Tweet tweet = new Tweet{
-                Content = content,
-                UserCreator = creator,
-                Date = DateTime.Now
-            };
-            db.Tweets.Add(tweet);
-            db.SaveChanges();
-            return Json(tweet);
-        }
-
-        public IActionResult UserRegister(string contact, string username, string password, string month, string day, string year)
-        {
-            User userCheck = db.Users.FirstOrDefault(u => u.Contact.Equals(contact) || u.Username.ToLower().Equals(username.ToLower()));
+            User userCheck = db.Users.FirstOrDefault(u => u.Mail.Equals(mail) || u.Username.ToLower().Equals(username.ToLower()));
 
             if(userCheck == null){
                 User newUser = new User{
-                Contact = contact,
+                Mail = mail,
                 Username = username,
                 Password = password,
                 Month = month,

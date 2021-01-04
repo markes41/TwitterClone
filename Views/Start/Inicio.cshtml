@@ -1,6 +1,8 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/start.css" />
 }
+
+@model List<Tweet>
     
     <div class="container-main">
         <div class="home">
@@ -8,17 +10,32 @@
         </div>
         <div class="new-tweet">
             <span class="dot-new-tweet"></span>
-            <textarea name="" id="" cols="30" rows="10" placeholder="¿Qué está pasando?" maxlength="280"></textarea>
+            <textarea name="" id="tweet-text" cols="30" rows="10" placeholder="¿Qué está pasando?" maxlength="280"></textarea>
             <hr class="line">
-            <a href="#" class="tweet-button">Twittear</a>
+            <input type="submit" class="tweet-button" value="Twittear">
         </div>
 
         <div class="tweet-container">
+
+            <!--@if(@Model.Count > 0)
+            {
+                @foreach (Tweet tweet in Model)
+                {
+                    <p>@tweet.Content</p>
+                    <p></p>
+                }
+            }
+            else
+            {
+                <h1>Aún no twitteaste nada</h1>
+            }-->
+
             <span class="dot-tweet"></span>
             <div class="text-tweet-container">
                 <div class="user-tweet-details">
                     <p>Mike Luca</p>
                     <p>MikeLuka7</p>
+                    <p>15:25</p>
                 </div>
                 <p>Mi papá siempre me dijo: "dime con quién andas y te diré quién eres". Eso mismo se aplica para nuestro Gobierno. Estamos alineados a China, Rusia, Bolivia, somos cómplices de Cuba y Venezuela. Países dónde se viven vulnerando libertades de todo tipo. ¿Qué puede salir mal?</p>
                 <div class="cm-rt-mg">

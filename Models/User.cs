@@ -8,7 +8,7 @@ namespace TwitterClone.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Contact { get ; set; }
+        public string Mail { get ; set; }
         [Required]
         public string Username { get; set; }
         [Required]
@@ -16,9 +16,8 @@ namespace TwitterClone.Models
         public string Month { get; set; }
         public string Day { get; set; }
         public string Year { get; set; }
-        public string Name { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
         public List<Tweet> Tweets { get; set; }
+        public List<User> Seguidores { get; set; }
+        public List<User> Seguidos { get; set; }
     }
 }

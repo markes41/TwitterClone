@@ -8,8 +8,8 @@ using TwitterClone.Models;
 namespace TwitterClone.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    [Migration("20201228190233_v1.0.4")]
-    partial class v104
+    [Migration("20210102005451_v1.0.5")]
+    partial class v105
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,44 +23,29 @@ namespace TwitterClone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Date")
+                    b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Like")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Retweet")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserContact")
+                    b.Property<string>("OwnerMail")
                         .HasColumnType("TEXT");
 
                     b.HasKey("TweetID");
 
-                    b.HasIndex("UserContact");
+                    b.HasIndex("OwnerMail");
 
                     b.ToTable("Tweets");
                 });
 
             modelBuilder.Entity("TwitterClone.Models.User", b =>
                 {
-                    b.Property<string>("Contact")
+                    b.Property<string>("Mail")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Day")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Month")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -74,16 +59,18 @@ namespace TwitterClone.Migrations
                     b.Property<string>("Year")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Contact");
+                    b.HasKey("Mail");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TwitterClone.Models.Tweet", b =>
                 {
-                    b.HasOne("TwitterClone.Models.User", null)
+                    b.HasOne("TwitterClone.Models.User", "Owner")
                         .WithMany("Tweets")
-                        .HasForeignKey("UserContact");
+                        .HasForeignKey("OwnerMail");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("TwitterClone.Models.User", b =>

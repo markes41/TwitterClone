@@ -10,7 +10,6 @@
 
 <form class="contact-form" action="@Url.Action("UserRegister", "Home")" method="POST">
     <div class="square-information">
-        <p>Date : @DateTime.Now</p>
             <div class="header-square">
                 <img src="~/img/icons/TwitterLogo.png" alt="">
             </div>
@@ -21,16 +20,8 @@
             </div>
 
             <div class="contact-content" id="user">
-                <p class="contact-value">Teléfono</p>
-                <input id='contact-type' type="tel" name="contact" align="center" required/>
-            </div>
-
-            <div class="contact-phone-section">
-                <a href="#" class="contact-phone">Usar teléfono</a>
-            </div>
-
-            <div class="contact-email-section">
-                <a href="#" class="contact-email">Usar correo</a>
+                <p class="contact-value">Correo electrónico</p>
+                <input id='contact-type' type="email" name="mail" align="center" required/>
             </div>
             
             <div class="password-section">

@@ -8,8 +8,8 @@ using TwitterClone.Models;
 namespace TwitterClone.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    [Migration("20201225195723_v1.0.2")]
-    partial class v102
+    [Migration("20210104022222_v1.0.9")]
+    partial class v109
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,21 +23,18 @@ namespace TwitterClone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Date")
+                    b.Property<int>("Comments")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Like")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Retweet")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserMail")
+                    b.Property<string>("OwnerMail")
                         .HasColumnType("TEXT");
 
                     b.HasKey("TweetID");
 
-                    b.HasIndex("UserMail");
+                    b.HasIndex("OwnerMail");
 
                     b.ToTable("Tweets");
                 });
@@ -48,15 +45,10 @@ namespace TwitterClone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Day")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("Month")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -67,16 +59,51 @@ namespace TwitterClone.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Year")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Mail");
 
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("UserUser", b =>
+                {
+                    b.Property<string>("SeguidoresMail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SeguidosMail")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SeguidoresMail", "SeguidosMail");
+
+                    b.HasIndex("SeguidosMail");
+
+                    b.ToTable("UserUser");
+                });
+
             modelBuilder.Entity("TwitterClone.Models.Tweet", b =>
                 {
-                    b.HasOne("TwitterClone.Models.User", null)
+                    b.HasOne("TwitterClone.Models.User", "Owner")
                         .WithMany("Tweets")
-                        .HasForeignKey("UserMail");
+                        .HasForeignKey("OwnerMail");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("UserUser", b =>
+                {
+                    b.HasOne("TwitterClone.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("SeguidoresMail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TwitterClone.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("SeguidosMail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TwitterClone.Models.User", b =>

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] / TwitterClone</title>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/start.css" />
     <script src="https://kit.fontawesome.com/46e18bb4ff.js" crossorigin="anonymous"></script>
     @RenderSection("Styles", required: false)
 </head>
 <body>
 <div class="display-flex">
     <header>
-            <img src="TwitterLogo.png" class="twitter-icon" alt="">
+            <img src="~/img/icons/TwitterLogo.png" class="twitter-icon" alt="">
             <div class="nav-left" style="width: 6rem;">
                 <img src="~/img/icons/home.png" class="icons" alt="">
                 <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Inicio">Inicio</a>
@@ -29,7 +30,7 @@
         
             <div class="nav-left aux-margin" style="width: 6rem;">
                 <img src="~/img/icons/profile.png" class="icons" alt="">
-                <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Inicio">Perfil</a>
+                <a class="section-layout" asp-area="" asp-controller="Start" asp-action="Profile">Perfil</a>
             </div>
             <a class="tweet-button-left">Twittear</a>
     </header>

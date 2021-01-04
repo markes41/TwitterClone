@@ -8,8 +8,8 @@ using TwitterClone.Models;
 namespace TwitterClone.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    [Migration("20201222144616_v1.0")]
-    partial class v10
+    [Migration("20201231031937_v1.0.4")]
+    partial class v104
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,14 +23,11 @@ namespace TwitterClone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Date")
+                    b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Like")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Retweet")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Owner")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserMail")
                         .HasColumnType("TEXT");
@@ -39,7 +36,7 @@ namespace TwitterClone.Migrations
 
                     b.HasIndex("UserMail");
 
-                    b.ToTable("Tweet");
+                    b.ToTable("Tweets");
                 });
 
             modelBuilder.Entity("TwitterClone.Models.User", b =>
@@ -48,15 +45,10 @@ namespace TwitterClone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Day")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("Month")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -65,6 +57,9 @@ namespace TwitterClone.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Year")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Mail");
