@@ -4,6 +4,7 @@
 }
 @{
     bool showButtonToFollow = (ViewBag.showButtonToFollow != null);
+    bool alreadyFollowed = (ViewBag.alreadyFollowed != null);
 }
 
     <div class="container-main">
@@ -17,8 +18,16 @@
             </div>
             @if(showButtonToFollow)
             {
-                <a href="" class="profile-edit-btn" id="follow-button">Seguir</a>
-                <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                if(alreadyFollowed)
+                {
+                    <a href="" class="profile-following-btn" id="follow-button">Siguiendo</a>
+                    <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                }
+                else
+                {
+                    <a href="" class="profile-follow-btn" id="follow-button">Seguir</a>
+                    <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                }
             }
             else
             {

@@ -99,6 +99,16 @@ namespace TwitterClone.Controllers
                     ViewBag.showButtonToFollow = false;
                 }
 
+                User searchIfFollow = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+                for (int i = 0; i < searchIfFollow.Following.Count(); i++)
+                {
+                    if(searchIfFollow.Following[i].Username.Equals(username))
+                    {
+                        ViewBag.alreadyFollowed = true;
+                    }
+                }
+
                 return View("Profile", tweets.ToList());
             }
             else
@@ -166,6 +176,34 @@ namespace TwitterClone.Controllers
                 }
                 
             }
+        }
+
+        public JsonResult BringTweets()
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+            User creatorToAdd = db.Users.Include(u => u.Tweets).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+            List<User> usersList = new List<User>();
+
+            for (int i = 0; i < creatorToAdd.Following.Count(); i++)
+            {
+                usersList.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
+            }
+            
+            usersList.Add(creatorToAdd);
+            List<Tweet> tweets = new List<Tweet>();
+            for (int i = 0; i < usersList.Count(); i++)
+            {
+                tweets.AddRange(usersList[i].Tweets);
+            }
+            var tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
+
+            for (int i = 0; i < tweets.Count(); i++)
+            {
+                tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
+            }
+        
+            return Json(tweetsOrganized.ToList());
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
