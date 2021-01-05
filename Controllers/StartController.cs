@@ -28,21 +28,27 @@ namespace TwitterClone.Controllers
             if(userInSession != null)
             {
                 User creatorToAdd = db.Users.Include(u => u.Tweets).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-                List<User> test = new List<User>();
+                List<User> usersList = new List<User>();
 
                 for (int i = 0; i < creatorToAdd.Following.Count(); i++)
                 {
-                    test.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
+                    usersList.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
                 }
                 
-                test.Add(creatorToAdd);
+                usersList.Add(creatorToAdd);
                 List<Tweet> tweets = new List<Tweet>();
-                for (int i = 0; i < test.Count(); i++)
+                for (int i = 0; i < usersList.Count(); i++)
                 {
-                    tweets.AddRange(test[i].Tweets);
+                    tweets.AddRange(usersList[i].Tweets);
                 }
-                
-                return View(tweets.ToList());
+                var tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
+
+                for (int i = 0; i < tweets.Count(); i++)
+                {
+                    tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
+                }
+            
+                return View(tweetsOrganized.ToList());
             }
             else
             {
