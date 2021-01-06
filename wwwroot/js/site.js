@@ -78,5 +78,35 @@
         });
     });
 
+    $('#unfollow-button').hide();
+
+    $('#following-button').mouseover(function(){
+        $('#following-button').hide();
+        $('#unfollow-button').show();
+    });
+
+    $('#following-button').mouseout(function(){
+        $('#following-button').show();
+        $('#unfollow-button').hide();
+    });
+
+    $('#to-following-button').hide();
+
+    $('#follow-button').on('click', function(){
+        $('#follow-button').hide();
+        $('#to-following-button').show();
+    });
+
+    $('#unfollow-button').on('click', function(){
+        var identificator = $('#userID').val();
+        $.ajax({
+            type: 'POST',
+            url: '/start/Unfollow',
+            data: {
+                ID: identificator
+            }
+        });
+    });
+
 
 });

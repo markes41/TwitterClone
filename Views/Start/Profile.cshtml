@@ -20,12 +20,14 @@
             {
                 if(alreadyFollowed)
                 {
-                    <a href="" class="profile-following-btn" id="follow-button">Siguiendo</a>
+                    <a href="" class="profile-following-btn" id="following-button">Siguiendo</a>
+                    <a href="" class="profile-unfollow-btn" id="unfollow-button">Dejar de seguir</a>
                     <input type="hidden" id="userID" value="@ViewBag.ID"/>
                 }
                 else
                 {
-                    <a href="" class="profile-follow-btn" id="follow-button">Seguir</a>
+                    <a href="#" class="profile-follow-btn" id="follow-button">Seguir</a>
+                    <a href="#" class="profile-to-follow-btn" id="to-following-button">Siguiendo</a>
                     <input type="hidden" id="userID" value="@ViewBag.ID"/>
                 }
             }

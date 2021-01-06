@@ -99,11 +99,11 @@ namespace TwitterClone.Controllers
                     ViewBag.showButtonToFollow = false;
                 }
 
-                User searchIfFollow = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+                User searchAlreadyFollow = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
 
-                for (int i = 0; i < searchIfFollow.Following.Count(); i++)
+                for (int i = 0; i < searchAlreadyFollow.Following.Count(); i++)
                 {
-                    if(searchIfFollow.Following[i].Username.Equals(username))
+                    if(searchAlreadyFollow.Following[i].Username.Equals(username))
                     {
                         ViewBag.alreadyFollowed = true;
                     }
@@ -204,6 +204,28 @@ namespace TwitterClone.Controllers
         
             return Json(tweetsOrganized.ToList());
             
+        }
+
+        public void Unfollow(string ID)
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+
+            if(userInSession != null)
+            {
+                User userToDoAction = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+                for (int i = 0; i < userToDoAction.Following.Count(); i++)
+                {
+                    if(userToDoAction.Following[i].Mail.Equals(ID))
+                    {
+
+                         userToDoAction.Following.RemoveAt(i);
+                    }
+                }
+
+                db.Users.Update(userToDoAction);
+                db.SaveChanges();
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
