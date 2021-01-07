@@ -329,30 +329,25 @@ textarea{
     border-radius: 100px;
     font-weight: bold;
     font-size: 15px;
+    cursor: pointer;
 }
 
-.profile-following-btn, .profile-to-follow-btn{
+.profile-following-btn{
     text-decoration: none;
     color: #fff;
-    margin-left: 24.1rem;
+    margin-left: 23.45rem;
     margin-right: 1rem;
-    padding: .7rem 1.7rem;
+    margin-top: -13px;
+    margin-bottom: -12px;
+    padding: .8rem 1rem;
     border-radius: 100px;
     font-weight: bold;
     font-size: 15px;
     background-color: rgb(29, 161, 242);
-}
-
-.profile-unfollow-btn{
-    text-decoration: none;
-    color: #fff;
-    margin-left: 23.85rem;
-    margin-right: 1rem;
-    padding: .7rem;
-    border-radius: 100px;
-    font-weight: bold;
-    font-size: 15px;
-    background-color: rgb(202, 32, 85);
+    display: inline-block;
+    width: 6.8rem;
+    cursor: pointer;
+    text-align: center;
 }
 
 .profile-edit-btn:hover, .profile-follow-btn:hover{

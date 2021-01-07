@@ -218,8 +218,8 @@ namespace TwitterClone.Controllers
                 {
                     if(userToDoAction.Following[i].Mail.Equals(ID))
                     {
-
                          userToDoAction.Following.RemoveAt(i);
+                         break;
                     }
                 }
 

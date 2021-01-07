@@ -15,6 +15,40 @@
         $('#password').removeClass('content-clicked');
     });
 
+    var test1 = $('#test').val();
+
+    if(test1 == "following"){
+        $('#unfollow-button').hide();
+        $('#follow-button').hide();
+    }
+    else if(test1 == "not-following"){
+        $('#unfollow-button').hide();
+        $('#following-button').hide();
+    }
+
+    $('#follow-button').on('click', function(){
+        $('#follow-button').hide();
+        $('#following-button').show();
+    });
+
+    $('#following-button').on('click', function(){
+        $('#follow-button').show();
+        $('#following-button').hide();
+    });
+
+    $('#following-button').mouseover(function(){
+        $('#following-button').text("Dejar de seguir");
+        $('#following-button').css('background-color', 'rgb(202, 32, 85)');
+    });
+
+    $('#following-button').mouseout(function(){
+        $('#following-button').text("Siguiendo");
+        $('#following-button').css('background-color', 'rgb(29, 161, 242)');
+        
+    });
+
+    
+
     $('.tweet-button').on('click', function(){
         var tweetValue = $('#tweet-text').val();
         $.ajax({
@@ -78,26 +112,9 @@
         });
     });
 
-    $('#unfollow-button').hide();
+    
 
-    $('#following-button').mouseover(function(){
-        $('#following-button').hide();
-        $('#unfollow-button').show();
-    });
-
-    $('#following-button').mouseout(function(){
-        $('#following-button').show();
-        $('#unfollow-button').hide();
-    });
-
-    $('#to-following-button').hide();
-
-    $('#follow-button').on('click', function(){
-        $('#follow-button').hide();
-        $('#to-following-button').show();
-    });
-
-    $('#unfollow-button').on('click', function(){
+    $('#following-button').on('click', function(){
         var identificator = $('#userID').val();
         $.ajax({
             type: 'POST',
