@@ -12,7 +12,7 @@ $(document).ready(function(){
                                 '<div class="user-tweet-details">'+
                                     '<p>Mike Luca</p>'+
                                     '<p>@'+response[i].owner.username+'</p>'+
-                                    '<p>15:25</p>'+
+                                    '<p>'+response[i].creationDay+' '+response[i].creationMonth+' '+response[i].creationYear+'</p>'+
                                 '</div>'+
                                 '<p>'+response[i].content+'</p>'+
                                 '<div class="cm-rt-mg">'+

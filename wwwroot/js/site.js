@@ -125,5 +125,20 @@
         });
     });
 
+    $('#myBtn').on('click', function(){
+        $.ajax({
+        url: '/start/EditProfile',
+        method: 'GET',
+        success: function(response){
+            $('#name-user').val(response.name);
+            $('#location-user').val(response.location);
+            $('#biography-user').val(response.biography);
+        },
+        failure: function(error){
+            console.log(error);
+        }
+        });
+    });
+
 
 });

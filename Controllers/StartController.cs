@@ -57,17 +57,28 @@ namespace TwitterClone.Controllers
             
         }
 
+        public IActionResult Test()
+        {
+            return View();
+        }
+
         public IActionResult Profile()
         {
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
 
             if(userInSession != null)
             {
+                User profileOwnTweets = db.Users.Include(u => u.Followers).Include(u => u.Following).Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
                 ViewBag.username = "@"+userInSession.Username;
                 ViewBag.day = userInSession.Day;
                 ViewBag.month = userInSession.Month;
                 ViewBag.year = userInSession.Year;
-                User profileOwnTweets = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == userInSession);
+                ViewBag.creationYear = userInSession.CreationYear;
+                ViewBag.creationMonth = userInSession.CreationDay;
+                ViewBag.creationDay = userInSession.CreationMonth;
+                ViewBag.name = userInSession.Name;
+                ViewBag.Followers = profileOwnTweets.Followers.Count();
+                ViewBag.Following = profileOwnTweets.Following.Count();
                 var tweets = profileOwnTweets.Tweets.OrderByDescending(u => u.TweetID);
                 return View(tweets.ToList());
             }
@@ -79,7 +90,7 @@ namespace TwitterClone.Controllers
 
         public IActionResult Search(string username)
         {
-            User accountSearched = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Username.Equals(username));
+            User accountSearched = db.Users.Include(u => u.Followers).Include(u => u.Following).Include(u => u.Tweets).FirstOrDefault(u => u.Username.Equals(username));
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
             
             if(accountSearched != null)
@@ -89,6 +100,11 @@ namespace TwitterClone.Controllers
                 ViewBag.month = accountSearched.Month;
                 ViewBag.year = accountSearched.Year;
                 ViewBag.ID = accountSearched.Mail;
+                ViewBag.creationYear = accountSearched.CreationYear;
+                ViewBag.creationMonth = accountSearched.CreationMonth;
+                ViewBag.name = accountSearched.Name;
+                ViewBag.Followers = accountSearched.Followers.Count();
+                ViewBag.Following = accountSearched.Following.Count();
 
                 ViewBag.showButtonToFollow = true;
                 
@@ -121,14 +137,19 @@ namespace TwitterClone.Controllers
         public void NewTweet(string content)
         {
             User tweetCreator = HttpContext.Session.Get<User>("UsuarioLogueado");
-
             if(tweetCreator != null)
 
             {
                 User creatorToAdd = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(tweetCreator.Mail));
+                String sDate = DateTime.Now.ToString();
+                DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+                
                 Tweet tweet = new Tweet{
                     Content = content,
-                    Owner = creatorToAdd
+                    Owner = creatorToAdd,
+                    CreationDay = datevalue.Day.ToString(),
+                    CreationMonth = monthWithName(datevalue.Month),
+                    CreationYear = datevalue.Year.ToString()
                 };
                 creatorToAdd.Tweets.Add(tweet);
                 db.Users.Update(creatorToAdd);
@@ -227,6 +248,79 @@ namespace TwitterClone.Controllers
                 db.SaveChanges();
             }
         }
+
+        public JsonResult EditProfile()
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+            return Json(userInSession);
+        }
+
+        public void ToEditProfile(string name, string biography, string location)
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+            
+            if(userInSession != null)
+            {
+                User userToEdit = db.Users.FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+                userToEdit.Biography = biography;
+                userToEdit.Name = name;
+                userToEdit.Location = location;
+
+                db.Users.Update(userToEdit);
+                db.SaveChanges();
+            }
+        }
+
+        public string monthWithName(int month)
+        {
+            string monthname = null;
+            switch(month)
+            {
+                case 1:
+                    monthname = "ene.";
+                    break;
+                case 2:
+                    monthname = "feb.";
+                    break;
+                case 3:
+                    monthname =  "mar.";
+                    break;
+                case 4:
+                    monthname =  "abr.";
+                    break;
+                case 5:
+                    monthname =  "may.";
+                    break;
+                case 6:
+                    monthname =  "jun.";
+                    break;
+                case 7:
+                    monthname =  "jul.";
+                    break;
+                case 8:
+                    monthname =  "ago.";
+                    break;
+                case 9:
+                    monthname =  "sep.";
+                    break;
+                case 10:
+                    monthname =  "oct.";
+                    break;
+                case 11:
+                    monthname =  "nov.";
+                    break;
+                case 12:
+                    monthname =  "dic.";
+                    break;
+                default:
+                    monthname =  "Mes inválido";
+                    break;
+            }
+
+            return monthname;
+        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

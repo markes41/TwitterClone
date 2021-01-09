@@ -13,7 +13,7 @@
 }
 
 header{
-    padding: 0 2.6rem 0 6rem;
+    padding: 0 2.6rem 0 5.6rem;
     position: fixed;
       
 }
@@ -60,6 +60,7 @@ header{
     border-width: .05rem;
     margin-top: -25px;
     margin-bottom: -25px;
+    height: 86px;
 }
 
 .home p{
@@ -113,7 +114,7 @@ textarea{
     padding: .7rem 1.3rem;
     border-radius: 35px;
     margin-top: -15px;
-    margin-left: 25.3rem;
+    margin-left: 30rem;
     outline: none;
     cursor: pointer;
 }
@@ -124,7 +125,7 @@ textarea{
     font-weight: 1000;
     font-size: .9rem;
     background-color: rgb(29, 161, 242);
-    padding: 1.1rem 5.2rem;
+    padding: .9rem 5.2rem;
     border-radius: 35px;
 }
 
@@ -140,9 +141,9 @@ textarea{
     margin-bottom: 1.3rem;
     margin-top: -5px;
     padding: 0;
-    width: 27.6rem;
+    width: 32.6rem;
     position: relative;
-    left: 24px;
+    left: 29px;
     
 }
 
@@ -175,7 +176,7 @@ textarea{
 }
 
 .tweet-container p{
-    max-width: 28rem;
+    max-width: 32rem;
     margin-left: .8rem;
     margin-bottom: -8px;
     color: #fff;
@@ -274,7 +275,7 @@ textarea{
 }
 
 .container-main{
-    margin-left: 24rem;
+    margin-left: 22.2rem;
 }
 
 .profile-specs{
@@ -300,27 +301,31 @@ textarea{
     background-image: url("https://i.pinimg.com/originals/63/b0/e2/63b0e2f99407065a838782915c6b6d8e.jpg");
     height: 200px;
     background-size: cover;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.3rem;
 }
 
 .profile-edit-btn{
     text-decoration: none;
     color: rgb(29, 161, 242);
-    margin-left: 25.4rem;
+    background-color: rgb(21, 32, 43);
+    margin-left: 29.4rem;
     margin-right: 1rem;
-    padding: .7rem;
+    margin-top: -11px;
+    padding: .52rem .7rem 0.52rem .7rem;
     border: rgb(29, 161, 242);
     border-style: solid;
     border-width: 1.8px;
     border-radius: 100px;
     font-weight: bold;
     font-size: 15px;
+    outline: none;
 }
+
 
 .profile-follow-btn{
     text-decoration: none;
     color: rgb(29, 161, 242);
-    margin-left: 27.7rem;
+    margin-left: 31.7rem;
     margin-right: 1rem;
     padding: .7rem;
     border: rgb(29, 161, 242);
@@ -352,6 +357,7 @@ textarea{
 
 .profile-edit-btn:hover, .profile-follow-btn:hover{
     background-color: rgb(22, 45, 64);
+    cursor: pointer;
 }
 
 .username{
@@ -369,6 +375,10 @@ textarea{
 .user-specs{
     padding: .8rem 0 0 .8rem;
     margin-top: -5px;
+}
+
+.user-dates{
+    display: flex;
 }
 
 .user-dates-text{
@@ -404,3 +414,4 @@ textarea{
     font-weight: 600;
     margin-right: 4px;
 }
+

@@ -64,18 +64,30 @@ namespace TwitterClone.Controllers
             }
         }
 
-        public IActionResult UserRegister(string mail, string username, string password, string month, string day, string year)
+        public IActionResult UserRegister(string name, string mail, string username, string password, string month, string day, string year)
         {
             User userCheck = db.Users.FirstOrDefault(u => u.Mail.Equals(mail) || u.Username.ToLower().Equals(username.ToLower()));
 
+            String sDate = DateTime.Now.ToString();
+            DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+            String dy = datevalue.Day.ToString();
+            String mn = monthWithName(datevalue.Month);
+            String yy = datevalue.Year.ToString();
+            
+
             if(userCheck == null){
                 User newUser = new User{
+                Name = name,
                 Mail = mail,
                 Username = username,
                 Password = password,
                 Month = month,
                 Day = day,
-                Year = year
+                Year = year,
+                CreationDay = dy,
+                CreationMonth = mn,
+                CreationYear = yy,
             };
 
             db.Users.Add(newUser);
@@ -88,6 +100,55 @@ namespace TwitterClone.Controllers
                 ViewBag.existeUsuario = true;
                 return View("Register");
             }   
+        }
+
+        public string monthWithName(int month)
+        {
+            string monthname = null;
+            switch(month)
+            {
+                case 1:
+                    monthname = "enero";
+                    break;
+                case 2:
+                    monthname = "febrero";
+                    break;
+                case 3:
+                    monthname =  "marzo";
+                    break;
+                case 4:
+                    monthname =  "abril";
+                    break;
+                case 5:
+                    monthname =  "mayo";
+                    break;
+                case 6:
+                    monthname =  "junio";
+                    break;
+                case 7:
+                    monthname =  "julio";
+                    break;
+                case 8:
+                    monthname =  "agosto";
+                    break;
+                case 9:
+                    monthname =  "septiembre";
+                    break;
+                case 10:
+                    monthname =  "octubre";
+                    break;
+                case 11:
+                    monthname =  "noviembre";
+                    break;
+                case 12:
+                    monthname =  "diciembre";
+                    break;
+                default:
+                    monthname =  "Mes inválido";
+                    break;
+            }
+
+            return monthname;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
