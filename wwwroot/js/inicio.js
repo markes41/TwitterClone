@@ -10,7 +10,7 @@ $(document).ready(function(){
                             '<span class="dot-tweet"></span>'+
                             '<div class="text-tweet-container">'+
                                 '<div class="user-tweet-details">'+
-                                    '<p>Mike Luca</p>'+
+                                    '<p>'+response[i].owner.name+'</p>'+
                                     '<p>@'+response[i].owner.username+'</p>'+
                                     '<p>'+response[i].creationDay+' '+response[i].creationMonth+' '+response[i].creationYear+'</p>'+
                                 '</div>'+

@@ -69,6 +69,7 @@ namespace TwitterClone.Controllers
             if(userInSession != null)
             {
                 User profileOwnTweets = db.Users.Include(u => u.Followers).Include(u => u.Following).Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+                ViewBag.Email = userInSession.Mail;
                 ViewBag.username = "@"+userInSession.Username;
                 ViewBag.day = userInSession.Day;
                 ViewBag.month = userInSession.Month;
@@ -86,6 +87,23 @@ namespace TwitterClone.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+        }
+
+        public IActionResult FollowFollowing()
+        {
+            return View();
+        }
+
+        public List<User> Following(string ID)
+        {
+            User userFollowList = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(ID));
+            return userFollowList.Following.ToList();
+        }
+
+        public List<User> Followers(string ID)
+        {
+            User userFollowList = db.Users.Include(u => u.Followers).FirstOrDefault(u => u.Mail.Equals(ID));
+            return userFollowList.Followers.ToList();
         }
 
         public IActionResult Search(string username)
@@ -319,6 +337,12 @@ namespace TwitterClone.Controllers
             }
 
             return monthname;
+        }
+
+        public JsonResult GetTheRecentTweet(string content)
+        {
+            Tweet recentTweet = db.Tweets.Include(t => t.Owner).FirstOrDefault(t => t.Content.Equals(content));
+            return Json(recentTweet);
         }
         
 

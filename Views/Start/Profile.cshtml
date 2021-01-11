@@ -47,14 +47,14 @@
                 <p class="user-dates-text"><i class="far fa-calendar-alt"></i>Se unió en @ViewBag.creationMonth de @ViewBag.creationYear</p>
             </div>
             <div class="stats-count">
-                <a href="#" class="link-follows">
+                <a class="link-follows">
                     <p class="quantity-follow">@ViewBag.Following</p>
-                    <p class="follow-text">Seguidos</p>
+                    <p class="follow-text" id="follows">Seguidos</p>
                 </a>
-                <a href="" class="link-followers">
+                <p class="link-followers">
                     <p class="quantity-followers">@ViewBag.Followers</p>
-                    <p class="followers-text">Seguidores</p>
-                </a>
+                    <p class="followers-text" id="followers">Seguidores</p>
+                </p>
                 
             </div>
         </div>
@@ -140,12 +140,52 @@
     </div>
 
 
+
+    <div id="myModal-follows" class="modal">
+        <div class="modal-content">
+            <div class="container-follows">
+            <div class="container-first-part">
+                <div class="header-first-part">
+                    <i class="fas fa-arrow-up close"></i>
+                    <div class="user-information">
+                        <p class="user-name">Mark</p>
+                        <p class="user-username">markkk41</p>
+                    </div>
+                </div>
+        
+                <div class="follow-sections">
+                    <a href="#" class="followers-text-modal">Seguidores</a>
+                    <a href="#" class="following-text-modal">Siguiendo</a>
+                </div>
+            </div>
+        
+            <div class="follow-container">
+                    <div class="information-container">
+                        <span class="dot-tweet"></span>
+                        <div class="user-dates">
+                            <p class="name-info">Mark</p>
+                            <div class="follow-you">
+                                <p class="username-info">markkk41</p>
+                                <p class="is-follow-you">Te sigue</p>
+                            </div>
+                            <p class="user-description">22. Programación UNLZ. Desarrollador Web FullStack</p>
+                        </div>
+                        <!--<a href="#" class="follow-btn" id="follow-button">Seguir</a>-->
+                        <span class="following-btn" id="following-button">Siguiendo</span>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+        </div>
 @section Scripts{
     <script>
         var modal = document.getElementById("myModal");
+        var modalFollows = document.getElementById("myModal-follows");
 
 
         var btn = document.getElementById("myBtn");
+        var btnFollows = document.getElementById("follows");
 
 
         var span = document.getElementsByClassName("close")[0];
@@ -155,16 +195,49 @@
         modal.style.display = "block";
         }
 
+        btnFollows.onclick = function() {
+        modalFollows.style.display = "block";
+        }
+
 
         span.onclick = function() {
         modal.style.display = "none";
+        modalFollows.style.display = "none";
         }
 
 
         window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target == modal || event.target == modalFollows) {
             modal.style.display = "none";
+            modalFollows.style.display = "none";
         }
         }
+
+        var modalFollow = document.getElementById("myModal-follows");
+
+        var btnFollow = document.getElementById("follows");
+        var btnFollowers = document.getElementById("followers");
+
+        var spanFollow = document.getElementsByClassName("close")[0];
+
+        btnFollow.onclick = function() {
+            modalFollow.style.display = "block";
+        }
+
+        btnFollowers.onclick = function() {
+            modalFollow.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modalFollow.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+        if (event.target == modalFollow) {
+            modalFollow.style.display = "none";
+        }
+        }
+
+        
     </script>
 }
