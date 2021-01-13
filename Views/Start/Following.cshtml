@@ -1,0 +1,57 @@
+@model List<User>
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/start.css" />
+    <link rel="stylesheet" href="~/css/followfollowing.css" />
+}
+
+@{
+    bool FollowingClick = (ViewBag.FollowingClick != null);
+    bool FollowersClick = (ViewBag.FollowersClick != null);
+}
+
+<div class="container-main">
+    <div class="container-first-part">
+        <div class="header-first-part">
+            <i class="fas fa-arrow-up"></i>
+            <div class="user-information">
+                <p class="user-name">@ViewBag.nameProfile</p>
+                <p class="user-username">@ViewBag.usernameProfile</p>
+            </div>
+        </div>
+
+        <div class="follow-sections">
+            <a href="/start/followers" class="followers-text">Seguidores</a>
+            <a href="#" class="following-text-window">Siguiendo</a>
+        </div>
+    </div>
+
+    @foreach (User following in Model)
+    {
+        <div class="follow-container">
+            <div class="information-container">
+                <span class="dot-tweet"></span>
+                <div class="user-dates">
+                    <p class="name-info">@following.Name</p>
+                    <div class="follow-you">
+                        <p class="username-info">@following.Username</p>
+                    </div>
+                    <p class="user-description">@following.Biography</p>
+                </div>
+                <span class="following-btn">Siguiendo</span>
+                <span class="follow-btn">Seguir</span>
+                <input type="hidden" id="userID" value="@following.Mail"/>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('.follow-btn').hide();
+        });
+    </script>
+}

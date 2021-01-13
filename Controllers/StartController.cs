@@ -89,21 +89,38 @@ namespace TwitterClone.Controllers
             }
         }
 
-        public IActionResult FollowFollowing()
+        public IActionResult Followers()
         {
-            return View();
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+
+            if(userInSession != null)
+            {
+                User userFollowers = db.Users.Include(u => u.Followers).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+                return View(userFollowers);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
-        public List<User> Following(string ID)
+        public IActionResult Following()
         {
-            User userFollowList = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(ID));
-            return userFollowList.Following.ToList();
-        }
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
 
-        public List<User> Followers(string ID)
-        {
-            User userFollowList = db.Users.Include(u => u.Followers).FirstOrDefault(u => u.Mail.Equals(ID));
-            return userFollowList.Followers.ToList();
+            if(userInSession != null)
+            {
+                User userFollowers = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+                ViewBag.usernameProfile = userFollowers.Username;
+                ViewBag.nameProfile = userFollowers.Name;
+                ViewBag.Mail = userFollowers.Mail;
+                return View(userFollowers.Following.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public IActionResult Search(string username)

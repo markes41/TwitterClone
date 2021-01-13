@@ -451,7 +451,7 @@ textarea{
 }
 
 .user-information p{
-    margin: 0 0 0 35px;
+    margin: 0 0 0 19px;
 }
 
 .follow-sections{
@@ -466,7 +466,6 @@ textarea{
     font-weight: 800;
     font-size: 15px;
     padding-bottom: .5rem;
-    margin-top: 1.2rem;
     margin-bottom: -7px;
     text-align: center;
     width: 100%;
@@ -502,6 +501,7 @@ textarea{
 .user-description{
     margin: 0;
     color: #fff;
+    width: 22rem;
 }
 
 .user-dates{
@@ -555,3 +555,4 @@ textarea{
     margin-left: .5rem;
     margin-top: -2px;
 }
+

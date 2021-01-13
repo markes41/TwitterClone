@@ -1,0 +1,83 @@
+@model User
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/start.css" />
+    <link rel="stylesheet" href="~/css/followfollowing.css" />
+}
+
+@{
+    bool FollowingClick = (ViewBag.FollowingClick != null);
+    bool FollowersClick = (ViewBag.FollowersClick != null);
+}
+
+<div class="container-main">
+    <div class="container-first-part">
+        <div class="header-first-part">
+            <i class="fas fa-arrow-up"></i>
+            <div class="user-information">
+                <p class="user-name">Mark</p>
+                <p class="user-username">markkk41</p>
+            </div>
+        </div>
+
+        <div class="follow-sections">
+            <a href="#" class="followers-text-window">Seguidores</a>
+            <a href="/start/following" class="following-text">Siguiendo</a>
+        </div>
+    </div>
+
+    @for (int i = 0; i < Model.Followers.Count(); i++)
+    {
+        bool isFollowing = false;
+        for(int j = 0; j < Model.Following.Count(); j++)
+        {
+            if(Model.Followers[i].Mail.Equals(Model.Following[j].Mail))
+            {
+                isFollowing = true;
+                break;
+            }
+            else
+            {
+                isFollowing = false;
+            }
+        }
+
+        if(isFollowing)
+        {
+            <div class="follow-container">
+                <div class="information-container">
+                    <span class="dot-tweet"></span>
+                    <div class="user-dates">
+                        <p class="name-info">@Model.Followers[i].Name</p>
+                        <div class="follow-you">
+                            <p class="username-info">@Model.Followers[i].Username</p>
+                        </div>
+                        <p class="user-description">@Model.Followers[i].Biography</p>
+                    </div>
+                    <span class="following-btn">Siguiendo</span>
+                    <!--<span class="follow-btn">Seguir</span>-->
+                    <input type="hidden" id="userID" value="@Model.Followers[i].Mail"/>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="follow-container">
+                <div class="information-container">
+                    <span class="dot-tweet"></span>
+                    <div class="user-dates">
+                        <p class="name-info">@Model.Followers[i].Name</p>
+                        <div class="follow-you">
+                            <p class="username-info">@Model.Followers[i].Username</p>
+                        </div>
+                        <p class="user-description">@Model.Followers[i].Biography</p>
+                    </div>
+                    <span class="follow-btn">Seguir</span>
+                    <input type="hidden" id="userID" value="@Model.Followers[i].Mail"/>
+                </div>
+            </div>
+        }
+    }
+
+
+</div>

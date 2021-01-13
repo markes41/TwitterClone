@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TwitterClone.Models;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace TwitterClone.Controllers
 {
@@ -21,11 +23,6 @@ namespace TwitterClone.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

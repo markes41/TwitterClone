@@ -22,16 +22,20 @@
                 if(alreadyFollowed)
                 {
                     <input type="hidden" value="following" id="test"/>
-                    <span class="profile-follow-btn" id="follow-button">Seguir</span>
-                    <span class="profile-following-btn" id="following-button">Siguiendo</span>
-                    <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                    <span class="following-btn" style="float: right; margin-right: 1rem;">Siguiendo</span>
+                    <span class="follow-btn" style="float: right; margin-right: 1rem;">Seguir</span>
+                    <div class="user-identification">
+                        <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                    </div>
                 }
                 else
                 {
                     <input type="hidden" value="not-following" id="test"/>
-                    <span class="profile-follow-btn" id="follow-button">Seguir</span>
-                    <span class="profile-following-btn" id="following-button">Siguiendo</span>
-                    <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                    <span class="following-btn" style="float: right; margin-right: 1rem;">Siguiendo</span>
+                    <span class="follow-btn" style="float: right; margin-right: 1rem;">Seguir</span>
+                    <div class="user-identification">
+                        <input type="hidden" id="userID" value="@ViewBag.ID"/>
+                    </div>
                 }
             }
             else
@@ -146,7 +150,7 @@
             <div class="container-follows">
             <div class="container-first-part">
                 <div class="header-first-part">
-                    <i class="fas fa-arrow-up close"></i>
+                    <i class="fas fa-arrow-up"></i>
                     <div class="user-information">
                         <p class="user-name">Mark</p>
                         <p class="user-username">markkk41</p>
@@ -158,24 +162,12 @@
                     <a href="#" class="following-text-modal">Siguiendo</a>
                 </div>
             </div>
-        
+
+            <input type="hidden" id="user-email" value="@ViewBag.Email">
             <div class="follow-container">
-                    <div class="information-container">
-                        <span class="dot-tweet"></span>
-                        <div class="user-dates">
-                            <p class="name-info">Mark</p>
-                            <div class="follow-you">
-                                <p class="username-info">markkk41</p>
-                                <p class="is-follow-you">Te sigue</p>
-                            </div>
-                            <p class="user-description">22. Programación UNLZ. Desarrollador Web FullStack</p>
-                        </div>
-                        <!--<a href="#" class="follow-btn" id="follow-button">Seguir</a>-->
-                        <span class="following-btn" id="following-button">Siguiendo</span>
-                    </div>
-            </div>
             </div>
         </div>
+    </div>
 
         </div>
 @section Scripts{
@@ -218,7 +210,7 @@
         var btnFollow = document.getElementById("follows");
         var btnFollowers = document.getElementById("followers");
 
-        var spanFollow = document.getElementsByClassName("close")[0];
+        var spanFollow = document.getElementsByClassName("fa-arrow-up")[0];
 
         btnFollow.onclick = function() {
             modalFollow.style.display = "block";
@@ -228,7 +220,7 @@
             modalFollow.style.display = "block";
         }
 
-        span.onclick = function() {
+        spanFollow.onclick = function() {
             modalFollow.style.display = "none";
         }
 

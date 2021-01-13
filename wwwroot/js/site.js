@@ -16,38 +16,35 @@
     });
 
     var test1 = $('#test').val();
-
+    $('.following-window-follow-btn').hide();
+    
     if(test1 == "following"){
-        $('#unfollow-button').hide();
-        $('#follow-button').hide();
+        $('.follow-btn').hide();
     }
     else if(test1 == "not-following"){
-        $('#unfollow-button').hide();
-        $('#following-button').hide();
+        $('.following-btn').hide();
     }
 
-    $('#follow-button').on('click', function(){
-        $('#follow-button').hide();
-        $('#following-button').show();
+    $('.follow-btn').on('click', function(){
+        $(this).hide();
+        $('.following-btn').show();
     });
 
-    $('#following-button').on('click', function(){
-        $('#follow-button').show();
-        $('#following-button').hide();
+    $('.following-btn').on('click', function(){
+        $(this).next(".follow-btn").show();
+        $(this).hide();
     });
 
-    $('#following-button').mouseover(function(){
-        $('#following-button').text("Dejar de seguir");
-        $('#following-button').css('background-color', 'rgb(202, 32, 85)');
+    $('.following-btn').mouseover(function(){
+        $(this).text("Dejar de seguir");
+        $(this).css('background-color', 'rgb(202, 32, 85)');
     });
 
-    $('#following-button').mouseout(function(){
-        $('#following-button').text("Siguiendo");
-        $('#following-button').css('background-color', 'rgb(29, 161, 242)');
+    $('.following-btn').mouseout(function(){
+        $(this).text("Siguiendo");
+        $(this).css('background-color', 'rgb(29, 161, 242)');
         
     });
-
-    
 
     $('.tweet-button').on('click', function(){
         var tweetValue = $('#tweet-text').val();
@@ -98,7 +95,7 @@
         });
     });
 
-    $('#follow-button').on('click', function(){
+    $('.follow-btn').on('click', function(){
         var identificator = $('#userID').val();
         
         $.ajax({
@@ -112,7 +109,7 @@
 
     
 
-    $('#following-button').on('click', function(){
+    $('.following-btn').on('click', function(){
         var identificator = $('#userID').val();
         $.ajax({
             type: 'POST',
@@ -137,18 +134,6 @@
         }
         });
     });
-
-    $('.follow-text').on('click', function(){
-        $('.followers-text-modal').hide();
-        $('.following-text-modal').show();
-    });
-
-    $('.followers-text').on('click', function(){
-        $('.following-text-modal').hide();
-        $('.followers-text-modal').show();
-    });
-
-
 });
 
 function callAjax(){
