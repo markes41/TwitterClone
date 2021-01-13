@@ -111,11 +111,8 @@ namespace TwitterClone.Controllers
 
             if(userInSession != null)
             {
-                User userFollowers = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-                ViewBag.usernameProfile = userFollowers.Username;
-                ViewBag.nameProfile = userFollowers.Name;
-                ViewBag.Mail = userFollowers.Mail;
-                return View(userFollowers.Following.ToList());
+                User userFollowing = db.Users.Include(u => u.Followers).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+                return View(userFollowing);
             }
             else
             {

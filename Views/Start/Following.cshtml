@@ -1,4 +1,4 @@
-@model List<User>
+@model User
 
 @section Styles{
     <link rel="stylesheet" href="~/css/start.css" />
@@ -8,6 +8,7 @@
 @{
     bool FollowingClick = (ViewBag.FollowingClick != null);
     bool FollowersClick = (ViewBag.FollowersClick != null);
+    string profileUsername = "@" + Model.Username;
 }
 
 <div class="container-main">
@@ -15,8 +16,8 @@
         <div class="header-first-part">
             <i class="fas fa-arrow-up"></i>
             <div class="user-information">
-                <p class="user-name">@ViewBag.nameProfile</p>
-                <p class="user-username">@ViewBag.usernameProfile</p>
+                <p class="user-name">@Model.Name</p>
+                <p class="user-username">@profileUsername</p>
             </div>
         </div>
 
@@ -26,23 +27,60 @@
         </div>
     </div>
 
-    @foreach (User following in Model)
+    @for (int i = 0; i < Model.Following.Count(); i++)
     {
-        <div class="follow-container">
-            <div class="information-container">
-                <span class="dot-tweet"></span>
-                <div class="user-dates">
-                    <p class="name-info">@following.Name</p>
-                    <div class="follow-you">
-                        <p class="username-info">@following.Username</p>
+        string name = "@" + Model.Following[i].Username;
+        bool isFollowingYou = false;
+        for(int j = 0; j < Model.Followers.Count(); j++)
+        {
+            if(Model.Following[i].Mail.Equals(Model.Followers[j].Mail))
+            {
+                isFollowingYou = true;
+                break;
+            }
+            else
+            {
+                isFollowingYou = false;
+            }
+        }
+
+        if(isFollowingYou)
+        {
+            <div class="follow-container">
+                <div class="information-container">
+                    <span class="dot-tweet"></span>
+                    <div class="user-dates">
+                        <p class="name-info">@Model.Following[i].Name</p>
+                        <div class="follow-you">
+                            <p class="username-info">@name</p>
+                            <p class="is-follow-you">Te sigue</p>
+                        </div>
+                        <p class="user-description">@Model.Following[i].Biography</p>
                     </div>
-                    <p class="user-description">@following.Biography</p>
+                    <span class="following-btn">Siguiendo</span>
+                    <span class="follow-btn">Seguir</span>
+                    <input type="hidden" id="userID" value="@Model.Following[i].Mail"/>
                 </div>
-                <span class="following-btn">Siguiendo</span>
-                <span class="follow-btn">Seguir</span>
-                <input type="hidden" id="userID" value="@following.Mail"/>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="follow-container">
+                <div class="information-container">
+                    <span class="dot-tweet"></span>
+                    <div class="user-dates">
+                        <p class="name-info">@Model.Following[i].Name</p>
+                        <div class="follow-you">
+                            <p class="username-info">@Model.Following[i].Username</p>
+                        </div>
+                        <p class="user-description">@Model.Following[i].Biography</p>
+                    </div>
+                    <span class="following-btn">Siguiendo</span>
+                    <span class="follow-btn">Seguir</span>
+                    <input type="hidden" id="userID" value="@Model.Following[i].Mail"/>
+                </div>
+            </div>
+        }
     }
 
 
