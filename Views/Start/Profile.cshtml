@@ -41,6 +41,7 @@
             else
             {
                 <button class="profile-edit-btn" id="myBtn">Editar perfil</button>
+                <input type="hidden" id="userEmail" value="@ViewBag.Email"/>
             }
             <div class="user-specs">
                 <p class="name">@ViewBag.name</p>
@@ -67,169 +68,82 @@
         
             @foreach (Tweet tweets in Model)
             {
-                
-                <div class="tweet-container">
-                    <span class="dot-tweet"></span>
-                    <div class="text-tweet-container">
-                        <div class="user-tweet-details">
-                            <p>Mike Luca</p>
-                            <p>@tweets.Owner.Username</p>
-                            <p>@tweets.CreationDay @tweets.CreationMonth @tweets.CreationYear</p>
+                string name = "@" + @tweets.Owner.Username;
+                <a href="/start/tweet?tweetid=@tweets.TweetID" class="tweet-click" style="text-decoration: none;">
+                    <div class="tweet-container">
+                        <span class="dot-tweet"></span>
+                        <div class="text-tweet-container">
+                            <div class="user-tweet-details">
+                                <p>@tweets.Owner.Name</p>
+                                <p>@name</p>
+                                <p>@tweets.CreationDay @tweets.CreationMonth @tweets.CreationYear</p>
+                            </div>
+                            <p>@tweets.Content</p>
+                            <div class="cm-rt-mg margin-right">
+                                <div class="comment-icon margin-right">
+                                    <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
+                                    <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
+                                    <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                </div>
+                                <div class="retweet-icon margin-right">
+                                    <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
+                                    <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
+                                    <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                </div>
+                                <div class="like-icon">
+                                    <a href=""><img src="~/img/icons/like.png" alt=""></a>
+                                    <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
+                                    <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                </div>
+                            </div>
                         </div>
-                        <p>@tweets.Content</p>
-                        <div class="cm-rt-mg">
-                            <div class="comment-icon">
-                                <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                                <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
-                                <input type="hidden" id="tweetID" value="@tweets.TweetID">
-                            </div>
-                            <div class="retweet-icon">
-                                <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
-                                <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
-                                <input type="hidden" id="tweetID" value="@tweets.TweetID">
-                            </div>
-                            <div class="like-icon">
-                                <a href=""><img src="~/img/icons/like.png" alt=""></a>
-                                <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
-                                <input type="hidden" id="tweetID" value="@tweets.TweetID">
-                            </div>
-                        </div>
+                        
                     </div>
-                    
-                </div>
+                </a>
             }   
     <div id="myModal" class="modal">
-            <div class="modal-content">
-                <div class="header-modal">
-                    <div class="first-part">
-                        <span class="close">&times;</span>
-                        <h3>Editar perfil</h3>
-                    </div>
-                    
+        <div class="modal-content">
+            <div class="header-modal">
+                <div class="first-part">
+                    <span class="close">&times;</span>
+                    <h3>Editar perfil</h3>
                 </div>
                 
-                <div class="edit-profile-picture"></div>
-                <a href="#" class="change-profile-picture"><i class="fas fa-camera photo"></i></a>
-                <div class="edit-cover-page-profile">
-                </div>
-
-                <div class="elements-cover">
-                    <a href="#" class="change-profile-picture"><i class="fas fa-camera photo-cover"></i></a>
-                    <span class="close-cover">&times;</span>
-                </div>
-                
-                <form class="contact-form" action="@Url.Action("ToEditProfile", "Start")" method="POST">
-                    <div class="form-profile">
-                        <div class="username-content" id="user">
-                            <p>Nombre</p>
-                            <input type="text" name="name" align="center" id="name-user" required/>
-                        </div>
-
-                        <div class="bio-content" id="biography">
-                            <p>Biografía</p>
-                            <textarea name="biography" cols="30" rows="10" maxlength="160" id="biography-user" required>asd</textarea>
-                        </div>
-
-                        <div class="ubication-content" id="location">
-                            <p>Ubicación</p>
-                            <input type="text" name="location" align="center" id="location-user" required/>
-                        </div>
-                    </div>
-                    <input type="submit" value="Guardar" class="save-button">
-                </form>
             </div>
+            
+            <div class="edit-profile-picture"></div>
+            <a href="#" class="change-profile-picture"><i class="fas fa-camera photo"></i></a>
+            <div class="edit-cover-page-profile">
+            </div>
+
+            <div class="elements-cover">
+                <a href="#" class="change-profile-picture"><i class="fas fa-camera photo-cover"></i></a>
+                <span class="close-cover">&times;</span>
+            </div>
+            
+            <form class="contact-form" action="@Url.Action("ToEditProfile", "Start")" method="POST">
+                <div class="form-profile">
+                    <div class="username-content" id="user">
+                        <p>Nombre</p>
+                        <input type="text" name="name" align="center" id="name-user" required/>
+                    </div>
+
+                    <div class="bio-content" id="biography">
+                        <p>Biografía</p>
+                        <textarea name="biography" cols="30" rows="10" maxlength="160" id="biography-user" required>asd</textarea>
+                    </div>
+
+                    <div class="ubication-content" id="location">
+                        <p>Ubicación</p>
+                        <input type="text" name="location" align="center" id="location-user" required/>
+                    </div>
+                </div>
+                <input type="submit" value="Guardar" class="save-button">
+            </form>
         </div>
+    </div>
             
         </div>
     </div>
 
-
-
-    <div id="myModal-follows" class="modal">
-        <div class="modal-content">
-            <div class="container-follows">
-            <div class="container-first-part">
-                <div class="header-first-part">
-                    <i class="fas fa-arrow-up"></i>
-                    <div class="user-information">
-                        <p class="user-name">Mark</p>
-                        <p class="user-username">markkk41</p>
-                    </div>
-                </div>
-        
-                <div class="follow-sections">
-                    <a href="#" class="followers-text-modal">Seguidores</a>
-                    <a href="#" class="following-text-modal">Siguiendo</a>
-                </div>
-            </div>
-
-            <input type="hidden" id="user-email" value="@ViewBag.Email">
-            <div class="follow-container">
-            </div>
-        </div>
-    </div>
-
-        </div>
-@section Scripts{
-    <script>
-        var modal = document.getElementById("myModal");
-        var modalFollows = document.getElementById("myModal-follows");
-
-
-        var btn = document.getElementById("myBtn");
-        var btnFollows = document.getElementById("follows");
-
-
-        var span = document.getElementsByClassName("close")[0];
-
-
-        btn.onclick = function() {
-        modal.style.display = "block";
-        }
-
-        btnFollows.onclick = function() {
-        modalFollows.style.display = "block";
-        }
-
-
-        span.onclick = function() {
-        modal.style.display = "none";
-        modalFollows.style.display = "none";
-        }
-
-
-        window.onclick = function(event) {
-        if (event.target == modal || event.target == modalFollows) {
-            modal.style.display = "none";
-            modalFollows.style.display = "none";
-        }
-        }
-
-        var modalFollow = document.getElementById("myModal-follows");
-
-        var btnFollow = document.getElementById("follows");
-        var btnFollowers = document.getElementById("followers");
-
-        var spanFollow = document.getElementsByClassName("fa-arrow-up")[0];
-
-        btnFollow.onclick = function() {
-            modalFollow.style.display = "block";
-        }
-
-        btnFollowers.onclick = function() {
-            modalFollow.style.display = "block";
-        }
-
-        spanFollow.onclick = function() {
-            modalFollow.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-        if (event.target == modalFollow) {
-            modalFollow.style.display = "none";
-        }
-        }
-
-        
-    </script>
-}
+</div>

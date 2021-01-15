@@ -57,11 +57,6 @@ namespace TwitterClone.Controllers
             
         }
 
-        public IActionResult Test()
-        {
-            return View();
-        }
-
         public IActionResult Profile()
         {
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
@@ -125,48 +120,55 @@ namespace TwitterClone.Controllers
             User accountSearched = db.Users.Include(u => u.Followers).Include(u => u.Following).Include(u => u.Tweets).FirstOrDefault(u => u.Username.Equals(username));
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
             
-            if(accountSearched != null)
+            if(accountSearched == userInSession)
             {
-                ViewBag.username = "@"+accountSearched.Username;
-                ViewBag.day = accountSearched.Day;
-                ViewBag.month = accountSearched.Month;
-                ViewBag.year = accountSearched.Year;
-                ViewBag.ID = accountSearched.Mail;
-                ViewBag.creationYear = accountSearched.CreationYear;
-                ViewBag.creationMonth = accountSearched.CreationMonth;
-                ViewBag.name = accountSearched.Name;
-                ViewBag.Followers = accountSearched.Followers.Count();
-                ViewBag.Following = accountSearched.Following.Count();
-
-                ViewBag.showButtonToFollow = true;
-                
-                var tweets = accountSearched.Tweets.OrderByDescending(u => u.TweetID);
-
-                if(userInSession.Username.Equals(accountSearched.Username) || userInSession == null)
-                {
-                    ViewBag.showButtonToFollow = false;
-                }
-
-                User searchAlreadyFollow = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-
-                for (int i = 0; i < searchAlreadyFollow.Following.Count(); i++)
-                {
-                    if(searchAlreadyFollow.Following[i].Username.Equals(username))
-                    {
-                        ViewBag.alreadyFollowed = true;
-                    }
-                }
-
-                return View("Profile", tweets.ToList());
+                return View();
             }
             else
             {
-                ViewBag.userNotFound = true;
-                return View("Profile");
+                if(accountSearched != null)
+                {
+                    ViewBag.username = "@"+accountSearched.Username;
+                    ViewBag.day = accountSearched.Day;
+                    ViewBag.month = accountSearched.Month;
+                    ViewBag.year = accountSearched.Year;
+                    ViewBag.ID = accountSearched.Mail;
+                    ViewBag.creationYear = accountSearched.CreationYear;
+                    ViewBag.creationMonth = accountSearched.CreationMonth;
+                    ViewBag.name = accountSearched.Name;
+                    ViewBag.Followers = accountSearched.Followers.Count();
+                    ViewBag.Following = accountSearched.Following.Count();
+
+                    ViewBag.showButtonToFollow = true;
+                    
+                    var tweets = accountSearched.Tweets.OrderByDescending(u => u.TweetID);
+
+                    if(userInSession.Username.Equals(accountSearched.Username) || userInSession == null)
+                    {
+                        ViewBag.showButtonToFollow = false;
+                    }
+
+                    User searchAlreadyFollow = db.Users.Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+                    for (int i = 0; i < searchAlreadyFollow.Following.Count(); i++)
+                    {
+                        if(searchAlreadyFollow.Following[i].Username.Equals(username))
+                        {
+                            ViewBag.alreadyFollowed = true;
+                        }
+                    }
+
+                    return View("Profile", tweets.ToList());
+                }
+                else
+                {
+                    ViewBag.userNotFound = true;
+                    return View("Profile");
+                }
             }
         }
 
-        public void NewTweet(string content)
+        public JsonResult NewTweet(string content)
         {
             User tweetCreator = HttpContext.Session.Get<User>("UsuarioLogueado");
             if(tweetCreator != null)
@@ -186,8 +188,17 @@ namespace TwitterClone.Controllers
                 creatorToAdd.Tweets.Add(tweet);
                 db.Users.Update(creatorToAdd);
                 db.SaveChanges();
+
+                return Json(TweetToReturn(tweet));
             }
 
+                return Json("falló");
+        }
+
+        public Tweet TweetToReturn(Tweet tweetToSearch)
+        {
+            Tweet tweet = db.Tweets.FirstOrDefault(t => t == tweetToSearch);
+            return tweet;
         }
 
         public void ToRetweet(int ID)
@@ -281,13 +292,22 @@ namespace TwitterClone.Controllers
             }
         }
 
-        public JsonResult EditProfile()
+        public JsonResult EditProfile(string mail)
         {
-            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
-            return Json(userInSession);
+            User userToEditProfile = db.Users.FirstOrDefault(u => u.Mail.Equals(mail));
+
+            if(userToEditProfile != null)
+            {
+                return Json(userToEditProfile);
+            }
+            else
+            {
+                return Json("No se encontró el usuario.");
+            }
+            
         }
 
-        public void ToEditProfile(string name, string biography, string location)
+        public IActionResult ToEditProfile(string name, string biography, string location)
         {
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
             
@@ -301,7 +321,60 @@ namespace TwitterClone.Controllers
 
                 db.Users.Update(userToEdit);
                 db.SaveChanges();
+                
+                return View("Profile");
             }
+
+            return View("Profile");
+        }
+
+        public IActionResult Tweet(int TweetID)
+        {
+            Tweet tweetToShow = db.Tweets.Include(t => t.Owner).Include(t => t.Comments).FirstOrDefault(t => t.TweetID == TweetID);
+
+            if(tweetToShow != null)
+            {
+                return View(tweetToShow);
+            }
+            else
+            {
+                return View("ErrorPage");
+            }
+        }
+
+        public void AddComment(string comment, string tweetToReply)
+        {
+            //Usuario que está en sesión y va a agregar un comentario
+            User userReply = HttpContext.Session.Get<User>("UsuarioLogueado");
+            if(userReply != null)
+            {
+                //Buscamos el tweet al que vamos a responder con su lista de comentarios
+                Tweet tweetReply = db.Tweets.Include(t => t.Comments).FirstOrDefault(t => t.Content.Equals(tweetToReply));
+
+                //Si el tweet existe, agregamos el tweet de respuesta a su lista de comentarios
+                if(tweetReply != null)
+                {
+                    String sDate = DateTime.Now.ToString();
+                    DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+                
+                    Tweet addTweetReply = new Tweet{
+                        Content = comment,
+                        Owner = userReply,
+                        CreationDay = datevalue.Day.ToString(),
+                        CreationMonth = monthWithName(datevalue.Month),
+                        CreationYear = datevalue.Year.ToString()
+                    };
+
+                    tweetReply.Comments.Add(addTweetReply);
+                    db.Tweets.Update(tweetReply);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public IActionResult ErrorPage()
+        {
+            return View();
         }
 
         public string monthWithName(int month)

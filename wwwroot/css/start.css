@@ -167,7 +167,6 @@ textarea{
     border-width: .05rem;
     padding: 0 0 .4rem .75rem;
     height: auto;
-    
 }
 
 .tweet-container:hover{
@@ -198,7 +197,7 @@ textarea{
 
 .cm-rt-mg{
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     width: 15rem;
     margin-top: 1rem;
     margin-left: .7rem;
@@ -228,6 +227,10 @@ textarea{
     padding: 7px;
     top: -7px;
     left: -7px;
+}
+
+.margin-right{
+    margin-right: 6rem;
 }
 
 .comment-icon{

@@ -49,14 +49,45 @@
     $('.tweet-button').on('click', function(){
         var tweetValue = $('#tweet-text').val();
         $.ajax({
-            type: 'POST',
-            url: '/start/NewTweet',
-            data: {
-                content: tweetValue
+            url: '/Start/NewTweet?content='+tweetValue,
+            method: 'GET',
+            success: function(response){
+                $('#container-all-tweets').prepend(
+                    '<div class="tweet-container">'+
+                        '<span class="dot-tweet"></span>'+
+                        '<div class="text-tweet-container">'+
+                            '<div class="user-tweet-details">'+
+                                '<p>'+response.owner.name+'</p>'+
+                                '<p>@'+response.owner.username+'</p>'+
+                                '<p>'+response.creationDay+' '+response.creationMonth+' '+response.creationYear+'</p>'+
+                            '</div>'+
+                            '<p>'+response.content+'</p>'+
+                            '<div class="cm-rt-mg">'+
+                                '<div class="comment-icon margin-right">'+
+                                    '<a href="" ><img src="../img/icons/comment.png" alt=""></a>'+
+                                    '<a href="" ><img src="../img/icons/comment-hover.png" alt="" class="hover-comment"></a>'+
+                                    '<input type="hidden" id="tweetID" value="'+response.tweetID+'">'+
+                                '</div>'+
+                                '<div class="retweet-icon margin-right">'+
+                                    '<a href=""><img src="../img/icons/retweet.png" alt=""></a>'+
+                                    '<a href=""><img src="../img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>'+
+                                    '<input type="hidden" id="tweetID" value="'+response.tweetID+'">'+
+                                '</div>'+
+                                '<div class="like-icon">'+
+                                    '<a href=""><img src="../img/icons/like.png" alt=""></a>'+
+                                    '<a href=""><img src="../img/icons/like-hover.png" alt="" class="hover-like"></a>'+
+                                    '<input type="hidden" id="tweetID" value="'+response.tweetID+'">'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                );
+            },
+            failure: function(error){
+                console.log(error);
             }
         });
         $('#tweet-text').val("");
-        callAjax();
     });
 
     $('.hover-retweet').on('click', function(){
@@ -88,7 +119,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '/start/ToRetweet',
+            url: '',
             data: {
                 ID: tweetID
             }
@@ -121,67 +152,45 @@
     });
 
     $('#myBtn').on('click', function(){
+        var userID = $('#userEmail').val();
         $.ajax({
-        url: '/start/EditProfile',
-        method: 'GET',
-        success: function(response){
-            $('#name-user').val(response.name);
-            $('#location-user').val(response.location);
-            $('#biography-user').val(response.biography);
-        },
-        failure: function(error){
-            console.log(error);
-        }
-        });
-    });
-});
-
-function callAjax(){
-    $.ajax({
-        url: '/Start/BringTweets',
-        method: 'GET',
-        success: function(response){
-            $('#container-all-tweets').empty();
-            for(var i=0;i<response.length;i++){
-                $('#container-all-tweets').append(
-                    '<div class="tweet-container">'+
-                        '<span class="dot-tweet"></span>'+
-                        '<div class="text-tweet-container">'+
-                            '<div class="user-tweet-details">'+
-                                '<p>'+response[i].owner.name+'</p>'+
-                                '<p>@'+response[i].owner.username+'</p>'+
-                                '<p>'+response[i].creationDay+' '+response[i].creationMonth+' '+response[i].creationYear+'</p>'+
-                            '</div>'+
-                            '<p>'+response[i].content+'</p>'+
-                            '<div class="cm-rt-mg">'+
-                                '<div class="comment-icon">'+
-                                    '<a href="" ><img src="../img/icons/comment.png" alt=""></a>'+
-                                    '<a href="" ><img src="../img/icons/comment-hover.png" alt="" class="hover-comment"></a>'+
-                                    '<input type="hidden" id="tweetID" value="'+response[i].tweetID+'">'+
-                                '</div>'+
-                                '<div class="retweet-icon">'+
-                                    '<a href=""><img src="../img/icons/retweet.png" alt=""></a>'+
-                                    '<a href=""><img src="../img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>'+
-                                    '<input type="hidden" id="tweetID" value="'+response[i].tweetID+'">'+
-                                '</div>'+
-                                '<div class="like-icon">'+
-                                    '<a href=""><img src="../img/icons/like.png" alt=""></a>'+
-                                    '<a href=""><img src="../img/icons/like-hover.png" alt="" class="hover-like"></a>'+
-                                    '<input type="hidden" id="tweetID" value="'+response[i].tweetID+'">'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'
-                );                    
+            url: '/Start/EditProfile?mail='+userID,
+            method: 'GET',
+            success: function(response){
+                $('#name-user').val(response.name);
+                $('#biography-user').val(response.biography);
+                $('#location-user').val(response.location);
+            },
+            failure: function(error){
+                console.log(error);
             }
-        },
-        failure: function(error){
-            console.log("Algo ha salido mal: "+error);
-        }
-});
-}
+        });
+        $('#myModal').css('display', 'block');
+    });
+  
+    $('.close').on('click', function(){
+        $('#myModal').css('display', 'none');
+    });
 
-function changeTheValue()
-{
-    return true;
-}
+    $('#comment-click').on('click', function(){
+        $('#modal-new-comment').css('display', 'block');
+      });
+  
+      $('.close').on('click', function(){
+        $('#modal-new-comment').css('display', 'none');
+      });
+
+      $('.btn-reply').on('click', function(){
+        $('#modal-new-comment').css('display', 'none');
+        var commentContent = $('.reply-content').val();
+        var tweetToReply = $('#tweet-content-to-reply').text();
+        $.ajax({
+            type: 'POST',
+            url: '/start/AddComment',
+            data: {
+                comment: commentContent,
+                tweetToReply: tweetToReply
+            }
+        });
+      });
+});

@@ -1,0 +1,119 @@
+@model Tweet
+@section Styles{
+    <link rel="stylesheet" href="~/css/start.css" />
+    <link rel="stylesheet" href="~/css/tweet.css" />
+}
+
+@{
+    string username = "@" + Model.Owner.Username;
+}
+
+<div class="tweet-body">
+        <div class="tweet-head">
+            <i class="fas fa-arrow-up" style="margin: 0 2rem;"></i>
+            <p>Twittear</p>
+        </div>
+        <div class="tweet-owner-container">
+            <div class="text-tweet-container">
+                <div class="first-part-tweet">
+                    <span class="dot-tweet" style="margin-left: .8rem;"></span>
+                    <div class="user-reply-details" >
+                        <p class="name-owner-tweet">@Model.Owner.Name</p>
+                        <p class="username-owner-tweet">@username</p>
+                    </div>
+                </div>
+                <p class="tweet-content" id="tweet-content-to-reply">@Model.Content</p>
+                
+                <p style="color: #7e8e9b; font-size: 15px;" class="tweet-date">· @Model.CreationDay @Model.CreationMonth @Model.CreationYear</p>
+                <div class="stats-tweet">
+                    <div class="display-flex">
+                        <p class="stat-quantity">25</p>
+                        <p class="stat-txt">Retweets</p>
+                    </div>
+                    <div class="display-flex">
+                    <p class="stat-quantity">701</p>
+                    <p class="stat-txt">Me gusta</p>
+                    </div>
+                </div>
+                <div class="cm-rt-mg" style="margin-bottom: .5rem; justify-content: center; width: 100%;">
+                    <div class="comment-icon margin-right" id="comment-click" style="margin: 0px 5rem;">
+                        <a href="#" ><img src="~/img/icons/comment.png" alt=""></a>
+                        <a href="#" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
+                        <input type="hidden" id="tweetID" value="@Model.TweetID">
+                    </div>
+                    <div class="retweet-icon margin-right" style="margin: 0px 5rem;">
+                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
+                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
+                        <input type="hidden" id="tweetID" value="@Model.TweetID">
+                    </div>
+                    <div class="like-icon" style="margin: 0px 5rem;">
+                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
+                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
+                        <input type="hidden" id="tweetID" value="@Model.TweetID">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @for (int i = 0; i < Model.Comments.Count(); i++)
+        {
+            string usernameReplier = "@" + @Model.Comments[i].Owner.Username;
+            <div class="replys-container" style="display: block;">
+                <div class="owner-tweet-information" style="display: flex;">
+                    <span class="dot-tweet" style="margin-left: .8rem;"></span>
+                    <div class="tweet-details" style="display: block;">
+                        <div class="reply-tweet-details" >
+                            <p class="owner-reply-username">@Model.Comments[i].Owner.Name</p>
+                            <p class="owner-reply-name">@usernameReplier</p>
+                            <p class="owner-reply-time">· @Model.Comments[i].CreationDay @Model.Comments[i].CreationMonth @Model.Comments[i].CreationYear</p>
+                        </div>
+                        <p class="reply-tweet">En respuesta a <a href="#" class="username-to-reply">@Model.Comments[i].Owner.Username</a></p>
+                        <p class="tweet-reply-content">@Model.Comments[i].Content</p>
+                    </div>
+                </div>
+                <div class="cm-rt-mg" style="width: 17rem; margin-left: 4.7rem; margin-top: 0; margin-bottom: .3rem">
+                    <div class="comment-icon">
+                        <a href="#" ><img src="~/img/icons/comment.png" alt=""></a>
+                        <a href="#" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
+                        <input type="hidden" id="tweetID" value="@Model.Comments[i].TweetID">
+                    </div>
+                    <div class="retweet-icon">
+                        <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
+                        <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
+                        <input type="hidden" id="tweetID" value="@Model.Comments[i].TweetID">
+                    </div>
+                    <div class="like-icon">
+                        <a href=""><img src="~/img/icons/like.png" alt=""></a>
+                        <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
+                        <input type="hidden" id="tweetID" value="@Model.Comments[i].TweetID">
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div id="modal-new-comment" class="modal-new-comment">
+            <div class="modal-new-comment-content">
+                <div class="header-first-part" style="margin-left: 0;">
+                <span class="close"></span>
+                </div>
+                <div class="user-information" style="display: flex;">
+                <span class="dot-tweet" style="margin-left: .8rem;"></span>
+                <div class="vl"></div>
+                <div class="tweet-details" style="display: block;">
+                    <div class="reply-tweet-details" >
+                        <p class="owner-reply-username" style="margin-left: 19px;">@Model.Owner.Name</p>
+                        <p class="owner-reply-name" style="margin-left: 10px;">@username</p>
+                        <p class="owner-reply-time" style="margin-left: 5px;">· @Model.CreationDay @Model.CreationMonth @Model.CreationYear</p>
+                    </div>
+                    <p class="tweet-reply-content" style="height: 4rem;">@Model.Content</p>
+                    <p class="reply-tweet">Respondiendo a <a href="#" class="username-to-reply">@Model.Owner.Username</a></p>
+                    </div>
+                </div>
+                <div class="user-replier">
+                <span class="dot-tweet" style="margin-left: .8rem; position: absolute; top: 245px;"></span>
+                <textarea name="reply-tweet-content" class="reply-content" cols="30" rows="10" placeholder="Twittea tu respuesta"></textarea>
+                </div>
+                <a href="#" class="btn-reply">Responder</a>
+            </div>
+        
+    </div>

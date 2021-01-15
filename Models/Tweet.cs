@@ -15,5 +15,6 @@ namespace TwitterClone.Models
         public string CreationDay { get; set; }
         public string CreationMonth { get; set; }
         public string CreationYear { get; set; }
+        public List<Tweet> Comments { get; set; }
     }
 }

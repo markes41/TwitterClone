@@ -16,12 +16,12 @@ $(document).ready(function(){
                                 '</div>'+
                                 '<p>'+response[i].content+'</p>'+
                                 '<div class="cm-rt-mg">'+
-                                    '<div class="comment-icon">'+
+                                    '<div class="comment-icon margin-right">'+
                                         '<a href="" ><img src="../img/icons/comment.png" alt=""></a>'+
                                         '<a href="" ><img src="../img/icons/comment-hover.png" alt="" class="hover-comment"></a>'+
                                         '<input type="hidden" id="tweetID" value="'+response[i].tweetID+'">'+
                                     '</div>'+
-                                    '<div class="retweet-icon">'+
+                                    '<div class="retweet-icon margin-right">'+
                                         '<a href=""><img src="../img/icons/retweet.png" alt=""></a>'+
                                         '<a href=""><img src="../img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>'+
                                         '<input type="hidden" id="tweetID" value="'+response[i].tweetID+'">'+
