@@ -193,4 +193,52 @@
             }
         });
       });
+
+      $('.change-profile-picture').on('click', function(){
+        $('.url-container').css('display', 'flex');
+        $('#myModal').css('display', 'none');
+      });
+  
+      $('.close-url-container').on('click', function(){
+        $('.url-container').css('display', 'none');
+        $('#myModal').css('display', 'block');
+      });
+
+      $('.save-url').on('click', function(){
+        $('.url-container').css('display', 'none');
+        $('#myModal').css('display', 'block');
+        var urlImage = $('#input-url').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/start/SaveProfilePicture',
+            data: {
+                URL: urlImage
+            }
+        });
+      });
+
+      $('.change-cover-picture').on('click', function(){
+        $('#cover-url-container').css('display', 'flex');
+        $('#myModal').css('display', 'none');
+      });
+  
+      $('.close-url-container').on('click', function(){
+        $('#cover-url-container').css('display', 'none');
+        $('#myModal').css('display', 'block');
+      });
+
+      $('#save-cover-profile').on('click', function(){
+        $('.url-container').css('display', 'none');
+        $('#myModal').css('display', 'block');
+        var urlImage = $('#input-url-cover-picture').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/start/SaveCoverPicture',
+            data: {
+                URL: urlImage
+            }
+        });
+      });
 });

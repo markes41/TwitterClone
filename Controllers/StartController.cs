@@ -75,6 +75,8 @@ namespace TwitterClone.Controllers
                 ViewBag.name = userInSession.Name;
                 ViewBag.Followers = profileOwnTweets.Followers.Count();
                 ViewBag.Following = profileOwnTweets.Following.Count();
+                ViewBag.ProfilePicture = profileOwnTweets.ProfilePicture;
+                ViewBag.CoverPicture = profileOwnTweets.CoverPicture;
                 var tweets = profileOwnTweets.Tweets.OrderByDescending(u => u.TweetID);
                 return View(tweets.ToList());
             }
@@ -372,6 +374,33 @@ namespace TwitterClone.Controllers
             }
         }
 
+        public void SaveProfilePicture(string URL)
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+
+            if(userInSession != null)
+            {
+                User userToSaveUrl = db.Users.FirstOrDefault(u => u == userInSession);
+
+                userToSaveUrl.ProfilePicture = URL;
+                db.Users.Update(userToSaveUrl);
+                db.SaveChanges();
+            }
+        }
+
+        public void SaveCoverPicture(string URL)
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+
+            if(userInSession != null)
+            {
+                User userToSaveUrl = db.Users.FirstOrDefault(u => u == userInSession);
+
+                userToSaveUrl.CoverPicture = URL;
+                db.Users.Update(userToSaveUrl);
+                db.SaveChanges();
+            }
+        }
         public IActionResult ErrorPage()
         {
             return View();

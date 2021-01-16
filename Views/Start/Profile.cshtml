@@ -13,9 +13,9 @@
             <p>Inicio</p>
         </div>
         <div class="profile-specs">
-            <img src="~/img/profile/profile-pic.png" alt="" class="profile-picture">
+            <img src="@ViewBag.ProfilePicture" alt="" class="profile-picture">
             <div class="cover-page-profile">
-                <img src="" alt="">
+                <img src="@ViewBag.CoverPicture" alt="">
             </div>
             @if(showButtonToFollow)
             {
@@ -117,7 +117,7 @@
             </div>
 
             <div class="elements-cover">
-                <a href="#" class="change-profile-picture"><i class="fas fa-camera photo-cover"></i></a>
+                <a href="#" class="change-cover-picture"><i class="fas fa-camera photo-cover"></i></a>
                 <span class="close-cover">&times;</span>
             </div>
             
@@ -146,4 +146,24 @@
         </div>
     </div>
 
+</div>
+
+<div class="url-container">
+  <div class="url-content">
+    <span class="close-url-container"></span>
+    <div class="input-container">
+      <input type="text" name="" id="input-url" placeholder="Ingresá el url de tu imagen" value="@ViewBag.ProfilePicture">
+    </div>
+    <a href="#" class="save-url">Guardar</a>
+  </div>
+</div>
+
+<div class="url-container" id="cover-url-container">
+  <div class="url-content">
+    <span class="close-url-container"></span>
+    <div class="input-container">
+      <input type="text" name="" id="input-url-cover-picture" placeholder="Ingresá el url de tu imagen" value="@ViewBag.CoverPicture">
+    </div>
+    <a href="#" class="save-url" id="save-cover-profile">Guardar</a>
+  </div>
 </div>

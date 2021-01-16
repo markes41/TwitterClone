@@ -26,5 +26,7 @@ namespace TwitterClone.Models
         public List<Tweet> Tweets { get; set; }
         public List<User> Followers { get; set; }
         public List<User> Following { get; set; }
+        public string ProfilePicture { get; set; }
+        public string CoverPicture { get; set; }
     }
 }
