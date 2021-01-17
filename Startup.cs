@@ -29,6 +29,7 @@ namespace TwitterClone
 
             services.AddSession(options =>
             {
+                options.IdleTimeout = TimeSpan.FromDays(30);
                 options.Cookie.Name = ".TwitterClone.Session";
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;

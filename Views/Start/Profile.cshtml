@@ -52,14 +52,14 @@
                 <p class="user-dates-text"><i class="far fa-calendar-alt"></i>Se unió en @ViewBag.creationMonth de @ViewBag.creationYear</p>
             </div>
             <div class="stats-count">
-                <a class="link-follows">
+                <a class="link-follows" href="/start/Following">
                     <p class="quantity-follow">@ViewBag.Following</p>
                     <p class="follow-text" id="follows">Seguidos</p>
                 </a>
-                <p class="link-followers">
+                <a class="link-followers" href="/start/Followers">
                     <p class="quantity-followers">@ViewBag.Followers</p>
                     <p class="followers-text" id="followers">Seguidores</p>
-                </p>
+                </a>
                 
             </div>
         </div>
@@ -71,7 +71,7 @@
                 string name = "@" + @tweets.Owner.Username;
                 <a href="/start/tweet?tweetid=@tweets.TweetID" class="tweet-click" style="text-decoration: none;">
                     <div class="tweet-container">
-                        <span class="dot-tweet"></span>
+                        <img src="@tweets.Owner.ProfilePicture" class="dot-tweet">
                         <div class="text-tweet-container">
                             <div class="user-tweet-details">
                                 <p>@tweets.Owner.Name</p>
@@ -81,14 +81,15 @@
                             <p>@tweets.Content</p>
                             <div class="cm-rt-mg margin-right">
                                 <div class="comment-icon margin-right">
-                                    <a href="" ><img src="~/img/icons/comment.png" alt=""></a>
-                                    <a href="" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
+                                    <a href="/start/tweet?tweetid=@tweets.TweetID" ><img src="~/img/icons/comment.png" alt=""></a>
+                                    <a href="/start/tweet?tweetid=@tweets.TweetID" ><img src="~/img/icons/comment-hover.png" alt="" class="hover-comment"></a>
                                     <input type="hidden" id="tweetID" value="@tweets.TweetID">
                                 </div>
                                 <div class="retweet-icon margin-right">
                                     <a href=""><img src="~/img/icons/retweet.png" alt=""></a>
                                     <a href=""><img src="~/img/icons/retweet-hover.png" alt="" class="hover-retweet"></a>
                                     <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                    <input type="hidden" id="userOwner" value="@tweets.Owner.Username">
                                 </div>
                                 <div class="like-icon">
                                     <a href=""><img src="~/img/icons/like.png" alt=""></a>
@@ -111,9 +112,10 @@
                 
             </div>
             
-            <div class="edit-profile-picture"></div>
+            <img class="edit-profile-picture" src="@ViewBag.ProfilePicture" alt="" class="profile-picture">
             <a href="#" class="change-profile-picture"><i class="fas fa-camera photo"></i></a>
             <div class="edit-cover-page-profile">
+                <img src="@ViewBag.CoverPicture" alt="">
             </div>
 
             <div class="elements-cover">
@@ -148,7 +150,7 @@
 
 </div>
 
-<div class="url-container">
+<div class="url-container" id="profile-url-container">
   <div class="url-content">
     <span class="close-url-container"></span>
     <div class="input-container">

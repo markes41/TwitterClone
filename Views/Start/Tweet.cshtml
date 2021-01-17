@@ -16,10 +16,10 @@
         <div class="tweet-owner-container">
             <div class="text-tweet-container">
                 <div class="first-part-tweet">
-                    <span class="dot-tweet" style="margin-left: .8rem;"></span>
+                    <a href="/start/search?username=@Model.Owner.Username" style="text-decoration:none;"><img src="@Model.Owner.ProfilePicture" alt="" class="dot-tweet" style="margin-left: .8rem;"></a>
                     <div class="user-reply-details" >
-                        <p class="name-owner-tweet">@Model.Owner.Name</p>
-                        <p class="username-owner-tweet">@username</p>
+                        <a href="/start/search?username=@Model.Owner.Username" style="text-decoration:none;"><p class="name-owner-tweet">@Model.Owner.Name</p></a>
+                        <a href="/start/search?username=@Model.Owner.Username" style="text-decoration:none;"><p class="username-owner-tweet">@username</p></a>
                     </div>
                 </div>
                 <p class="tweet-content" id="tweet-content-to-reply">@Model.Content</p>
@@ -60,11 +60,12 @@
             string usernameReplier = "@" + @Model.Comments[i].Owner.Username;
             <div class="replys-container" style="display: block;">
                 <div class="owner-tweet-information" style="display: flex;">
-                    <span class="dot-tweet" style="margin-left: .8rem;"></span>
+                    <a href="/start/search?username=@Model.Comments[i].Owner.Username" style="text-decoration:none;"><img src="@Model.Comments[i].Owner.ProfilePicture" alt="" class="dot-tweet" style="margin-left: .8rem;"></a>
+
                     <div class="tweet-details" style="display: block;">
                         <div class="reply-tweet-details" >
-                            <p class="owner-reply-username">@Model.Comments[i].Owner.Name</p>
-                            <p class="owner-reply-name">@usernameReplier</p>
+                            <a href="/start/search?username=@Model.Comments[i].Owner.Username" style="text-decoration:none;"><p class="owner-reply-username">@Model.Comments[i].Owner.Name</p></a>
+                            <a href="/start/search?username=@Model.Comments[i].Owner.Username" style="text-decoration:none;"><p class="owner-reply-name">@usernameReplier</p></a>
                             <p class="owner-reply-time">· @Model.Comments[i].CreationDay @Model.Comments[i].CreationMonth @Model.Comments[i].CreationYear</p>
                         </div>
                         <p class="reply-tweet">En respuesta a <a href="#" class="username-to-reply">@Model.Comments[i].Owner.Username</a></p>
@@ -97,12 +98,12 @@
                 <span class="close"></span>
                 </div>
                 <div class="user-information" style="display: flex;">
-                <span class="dot-tweet" style="margin-left: .8rem;"></span>
+                <a href="/start/search?username=@Model.Owner.Username" alt="" style="text-decoration:none;"><img src="@Model.Owner.ProfilePicture" alt="" class="dot-tweet" style="margin-left: .8rem;"></img><a>
                 <div class="vl"></div>
                 <div class="tweet-details" style="display: block;">
                     <div class="reply-tweet-details" >
-                        <p class="owner-reply-username" style="margin-left: 19px;">@Model.Owner.Name</p>
-                        <p class="owner-reply-name" style="margin-left: 10px;">@username</p>
+                        <a href="/start/search?username=@Model.Owner.Username" alt="" style="text-decoration:none;"><p class="owner-reply-username" style="margin-left: 19px;">@Model.Owner.Name</p></a>
+                        <a href="/start/search?username=@Model.Owner.Username" alt="" style="text-decoration:none;"><p class="owner-reply-name" style="margin-left: 10px;">@username</p></a>
                         <p class="owner-reply-time" style="margin-left: 5px;">· @Model.CreationDay @Model.CreationMonth @Model.CreationYear</p>
                     </div>
                     <p class="tweet-reply-content" style="height: 4rem;">@Model.Content</p>
@@ -110,10 +111,10 @@
                     </div>
                 </div>
                 <div class="user-replier">
-                <span class="dot-tweet" style="margin-left: .8rem; position: absolute; top: 245px;"></span>
+                <img src="@ViewBag.UserToCommentProfilePicture" alt="" class="dot-tweet" style="margin-left: .8rem; position: absolute; top: 245px;"></img>
                 <textarea name="reply-tweet-content" class="reply-content" cols="30" rows="10" placeholder="Twittea tu respuesta"></textarea>
                 </div>
                 <a href="#" class="btn-reply">Responder</a>
-            </div>
+        </div>
         
     </div>

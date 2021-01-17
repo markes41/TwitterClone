@@ -27,28 +27,7 @@ namespace TwitterClone.Controllers
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
             if(userInSession != null)
             {
-                User creatorToAdd = db.Users.Include(u => u.Tweets).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-                List<User> usersList = new List<User>();
-
-                for (int i = 0; i < creatorToAdd.Following.Count(); i++)
-                {
-                    usersList.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
-                }
-                
-                usersList.Add(creatorToAdd);
-                List<Tweet> tweets = new List<Tweet>();
-                for (int i = 0; i < usersList.Count(); i++)
-                {
-                    tweets.AddRange(usersList[i].Tweets);
-                }
-                var tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
-
-                for (int i = 0; i < tweets.Count(); i++)
-                {
-                    tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
-                }
-            
-                return View(tweetsOrganized.ToList());
+                return View(orderTweets(userInSession));
             }
             else
             {
@@ -140,6 +119,8 @@ namespace TwitterClone.Controllers
                     ViewBag.name = accountSearched.Name;
                     ViewBag.Followers = accountSearched.Followers.Count();
                     ViewBag.Following = accountSearched.Following.Count();
+                    ViewBag.ProfilePicture = accountSearched.ProfilePicture;
+                    ViewBag.CoverPicture = accountSearched.CoverPicture;
 
                     ViewBag.showButtonToFollow = true;
                     
@@ -203,20 +184,29 @@ namespace TwitterClone.Controllers
             return tweet;
         }
 
-        public void ToRetweet(int ID)
+        /*public void ToRetweet(int ID, string username)
         {
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
 
             if(userInSession != null)
             {
                 User userToRetweet = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-                Tweet tweetToRetweet = db.Tweets.FirstOrDefault(t => t.TweetID == ID);
+                
+                User userOwnerTweet = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Username.Equals(username));
 
-                userToRetweet.Tweets.Add(tweetToRetweet);
+                for(int i = 0; i < userOwnerTweet.Tweets.Count(); i++)
+                {
+                    if(userOwnerTweet.Tweets[i].TweetID == ID)
+                    {
+                        userToRetweet.Tweets.Insert(1, userOwnerTweet.Tweets[i]);
+                        break;
+                    }
+                }
+
                 db.Users.Update(userToRetweet);
                 db.SaveChanges();
             }
-        }
+        }*/
 
         public void ToFollow(string ID)
         {
@@ -247,28 +237,7 @@ namespace TwitterClone.Controllers
         public JsonResult BringTweets()
         {
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
-            User creatorToAdd = db.Users.Include(u => u.Tweets).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
-            List<User> usersList = new List<User>();
-
-            for (int i = 0; i < creatorToAdd.Following.Count(); i++)
-            {
-                usersList.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
-            }
-            
-            usersList.Add(creatorToAdd);
-            List<Tweet> tweets = new List<Tweet>();
-            for (int i = 0; i < usersList.Count(); i++)
-            {
-                tweets.AddRange(usersList[i].Tweets);
-            }
-            var tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
-
-            for (int i = 0; i < tweets.Count(); i++)
-            {
-                tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
-            }
-        
-            return Json(tweetsOrganized.ToList());
+            return Json(orderTweets(userInSession));
             
         }
 
@@ -315,7 +284,7 @@ namespace TwitterClone.Controllers
             
             if(userInSession != null)
             {
-                User userToEdit = db.Users.FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+                User userToEdit = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
 
                 userToEdit.Biography = biography;
                 userToEdit.Name = name;
@@ -323,19 +292,21 @@ namespace TwitterClone.Controllers
 
                 db.Users.Update(userToEdit);
                 db.SaveChanges();
-                
-                return View("Profile");
+                ViewBag.CoverPicture = userToEdit.CoverPicture;
+                ViewBag.ProfilePicture = userToEdit.ProfilePicture;
+                return View("Profile", userToEdit.Tweets.OrderByDescending(t => t.TweetID).ToList());
             }
 
-            return View("Profile");
+            return RedirectToAction("Login", "Home");
         }
 
         public IActionResult Tweet(int TweetID)
         {
             Tweet tweetToShow = db.Tweets.Include(t => t.Owner).Include(t => t.Comments).FirstOrDefault(t => t.TweetID == TweetID);
-
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
             if(tweetToShow != null)
             {
+                ViewBag.UserToCommentProfilePicture = userInSession.ProfilePicture;
                 return View(tweetToShow);
             }
             else
@@ -404,6 +375,34 @@ namespace TwitterClone.Controllers
         public IActionResult ErrorPage()
         {
             return View();
+        }
+
+        public List<Tweet> orderTweets(User inSession)
+        {
+            User creatorToAdd = db.Users.Include(u => u.Tweets).Include(u => u.Following).FirstOrDefault(u => u.Mail.Equals(inSession.Mail));
+            List<User> usersList = new List<User>();
+            ViewBag.ProfilePicture = creatorToAdd.ProfilePicture;
+
+            for (int i = 0; i < creatorToAdd.Following.Count(); i++)
+            {
+                usersList.Add(db.Users.Include(u => u.Tweets).FirstOrDefault(u => u == creatorToAdd.Following[i]));
+            }
+            
+            usersList.Add(creatorToAdd);
+            List<Tweet> tweets = new List<Tweet>();
+            for (int i = 0; i < usersList.Count(); i++)
+            {
+                tweets.AddRange(usersList[i].Tweets);
+            }
+            var tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
+
+            for (int i = 0; i < tweets.Count(); i++)
+            {
+                tweetsOrganized = tweets.OrderByDescending(t => t.TweetID);
+            }
+
+            return tweetsOrganized.ToList();
+
         }
 
         public string monthWithName(int month)

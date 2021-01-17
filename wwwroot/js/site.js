@@ -54,7 +54,7 @@
             success: function(response){
                 $('#container-all-tweets').prepend(
                     '<div class="tweet-container">'+
-                        '<span class="dot-tweet"></span>'+
+                        '<img src="'+response.owner.profilePicture+'" class="dot-tweet">'+
                         '<div class="text-tweet-container">'+
                             '<div class="user-tweet-details">'+
                                 '<p>'+response.owner.name+'</p>'+
@@ -88,30 +88,6 @@
             }
         });
         $('#tweet-text').val("");
-    });
-
-    $('.hover-retweet').on('click', function(){
-        var tweetID = $(this).closest('div[class^=retweet-icon').find('#tweetID').val();
-        
-        $.ajax({
-            type: 'POST',
-            url: '/start/ToRetweet',
-            data: {
-                ID: tweetID
-            }
-        });
-    });
-
-    $('.hover-like').on('click', function(){
-        var tweetID = $(this).closest('div[class^=like-icon').find('#tweetID').val();
-        
-        $.ajax({
-            type: 'POST',
-            url: '/start/ToRetweet',
-            data: {
-                ID: tweetID
-            }
-        });
     });
 
     $('.hover-comment').on('click', function(){
@@ -174,13 +150,13 @@
 
     $('#comment-click').on('click', function(){
         $('#modal-new-comment').css('display', 'block');
-      });
+    });
   
-      $('.close').on('click', function(){
+    $('.close').on('click', function(){
         $('#modal-new-comment').css('display', 'none');
-      });
+    });
 
-      $('.btn-reply').on('click', function(){
+    $('.btn-reply').on('click', function(){
         $('#modal-new-comment').css('display', 'none');
         var commentContent = $('.reply-content').val();
         var tweetToReply = $('#tweet-content-to-reply').text();
@@ -192,53 +168,59 @@
                 tweetToReply: tweetToReply
             }
         });
-      });
+    });
 
-      $('.change-profile-picture').on('click', function(){
-        $('.url-container').css('display', 'flex');
+    $('.change-profile-picture').on('click', function(){
+        $('#profile-url-container').css('display', 'flex');
         $('#myModal').css('display', 'none');
-      });
-  
-      $('.close-url-container').on('click', function(){
-        $('.url-container').css('display', 'none');
-        $('#myModal').css('display', 'block');
-      });
+    });
 
-      $('.save-url').on('click', function(){
-        $('.url-container').css('display', 'none');
+    $('.close-url-container').on('click', function(){
+        $('#profile-url-container').css('display', 'none');
         $('#myModal').css('display', 'block');
-        var urlImage = $('#input-url').val();
+    });
+
+    $('.save-url').on('click', function(){
+        $('#profile-url-container').css('display', 'none');
+        $('#myModal').css('display', 'block');
+        var urlProfilePhoto = $('#input-url').val();
 
         $.ajax({
             type: 'POST',
             url: '/start/SaveProfilePicture',
             data: {
-                URL: urlImage
+                URL: urlProfilePhoto
             }
         });
-      });
+    });
 
-      $('.change-cover-picture').on('click', function(){
+    $('.change-cover-picture').on('click', function(){
         $('#cover-url-container').css('display', 'flex');
         $('#myModal').css('display', 'none');
-      });
+    });
   
-      $('.close-url-container').on('click', function(){
+    $('.close-url-container').on('click', function(){
         $('#cover-url-container').css('display', 'none');
         $('#myModal').css('display', 'block');
-      });
+    });
 
-      $('#save-cover-profile').on('click', function(){
-        $('.url-container').css('display', 'none');
+    $('#save-cover-profile').on('click', function(){
+        $('#cover-url-container').css('display', 'none');
         $('#myModal').css('display', 'block');
-        var urlImage = $('#input-url-cover-picture').val();
+        var urlCoverPhoto = $('#input-url-cover-picture').val();
 
         $.ajax({
             type: 'POST',
             url: '/start/SaveCoverPicture',
             data: {
-                URL: urlImage
+                URL: urlCoverPhoto
             }
         });
-      });
+    });
+
+    $('body').on('click', '.tweet-container', function(){
+        var tweetID = $(this).find('#tweetID').val();
+        window.location.href = '/start/tweet?TweetID='+tweetID;
+    });
+    
 });

@@ -8,6 +8,7 @@
 @{
     bool FollowingClick = (ViewBag.FollowingClick != null);
     bool FollowersClick = (ViewBag.FollowersClick != null);
+    string profileUsername = "@" + Model.Username;
 }
 
 <div class="container-main">
@@ -15,8 +16,8 @@
         <div class="header-first-part">
             <i class="fas fa-arrow-up"></i>
             <div class="user-information">
-                <p class="user-name">Mark</p>
-                <p class="user-username">markkk41</p>
+                <p class="user-name">@Model.Name</p>
+                <p class="user-username">@profileUsername</p>
             </div>
         </div>
 
@@ -46,7 +47,7 @@
         {
             <div class="follow-container">
                 <div class="information-container">
-                    <span class="dot-tweet"></span>
+                    <img src="@Model.Followers[i].ProfilePicture" class="dot-tweet">
                     <div class="user-dates">
                         <p class="name-info">@Model.Followers[i].Name</p>
                         <div class="follow-you">
@@ -64,7 +65,7 @@
         {
             <div class="follow-container">
                 <div class="information-container">
-                    <span class="dot-tweet"></span>
+                    <img src="@Model.Followers[i].ProfilePicture" class="dot-tweet">
                     <div class="user-dates">
                         <p class="name-info">@Model.Followers[i].Name</p>
                         <div class="follow-you">
