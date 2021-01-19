@@ -69,7 +69,7 @@
             @foreach (Tweet tweets in Model)
             {
                 string name = "@" + @tweets.Owner.Username;
-                <a href="/start/tweet?tweetid=@tweets.TweetID" class="tweet-click" style="text-decoration: none;">
+                <a href="#" class="tweet-click" style="text-decoration: none;">
                     <div class="tweet-container">
                         <img src="@tweets.Owner.ProfilePicture" class="dot-tweet">
                         <div class="text-tweet-container">
@@ -91,16 +91,24 @@
                                     <input type="hidden" id="tweetID" value="@tweets.TweetID">
                                     <input type="hidden" id="userOwner" value="@tweets.Owner.Username">
                                 </div>
-                                <div class="like-icon">
+                                <div class="like-icon margin-right">
                                     <a href=""><img src="~/img/icons/like.png" alt=""></a>
                                     <a href=""><img src="~/img/icons/like-hover.png" alt="" class="hover-like"></a>
                                     <input type="hidden" id="tweetID" value="@tweets.TweetID">
                                 </div>
+                                @if (@tweets.Owner.Mail.Equals(@ViewBag.Email))
+                                {
+                                    <div class="delete-tweet">
+                                        <i class="far fa-trash-alt"></i>
+                                        <input type="hidden" id="tweetID" value="@tweets.TweetID">
+                                    </div>
+                                }
                             </div>
                         </div>
                         
                     </div>
                 </a>
+                
             }   
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -168,4 +176,8 @@
     </div>
     <a href="#" class="save-url" id="save-cover-profile">Guardar</a>
   </div>
+</div>
+
+<div class="delete-container">
+  
 </div>

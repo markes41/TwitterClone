@@ -218,9 +218,42 @@
         });
     });
 
-    $('body').on('click', '.tweet-container', function(){
-        var tweetID = $(this).find('#tweetID').val();
-        window.location.href = '/start/tweet?TweetID='+tweetID;
+    
+
+    $('body').on('click', '.fa-trash-alt', function(){
+        var tweetID = $(this).next('#tweetID').val();
+        $('.delete-container').css('display', 'flex');
+        
+        $('.delete-container').append(
+            '<div class="delete-content">'+
+                '<p class="warning-title">¿Quieres eliminar el Tweet?</p>'+
+                '<p class="warning-text">Esta acción no se puede revertir, y se lo eliminará de tu perfil, de la cronología de las cuentas que te sigan y de los resultados de búsqueda de Twitter. </p>'+
+                '<div class="delete-btns">'+
+                '<span class="cancel-btn">Cancelar</span>+'+
+                '<span class="confirm-btn">Eliminar</span>'+
+                '<input type="hidden" class="tweetIdentificator" value="'+tweetID+'">'+
+                '</div>'+
+            '</div>'
+        );
+    });
+
+    $('body').on('click', '.cancel-btn', function(){
+        $('.delete-container').css('display', 'none');
+    });
+
+
+    $('body').on('click', '.confirm-btn', function(){
+        var tweetIdentificator = $(this).next('.tweetIdentificator').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/start/DeleteTweet',
+            data: {
+                ID: tweetIdentificator
+            }
+        });
+        $('.delete-container').css('display', 'none');
+        
     });
     
 });

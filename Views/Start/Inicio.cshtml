@@ -15,8 +15,12 @@
         <input type="submit" class="tweet-button" value="Twittear">
     </div>
 
-        <div id="container-all-tweets"></div> 
+        <div id="container-all-tweets">
+            <input type="hidden" id="usernameVal" value="@ViewBag.Username">
+        </div> 
 </div>
+
+<div class="delete-container"></div>
 
 @section Scripts{
     <script src="~/js/inicio.js"></script>

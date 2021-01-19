@@ -27,6 +27,7 @@ namespace TwitterClone.Controllers
             User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
             if(userInSession != null)
             {
+                ViewBag.Username = userInSession.Username;
                 return View(orderTweets(userInSession));
             }
             else
@@ -403,6 +404,19 @@ namespace TwitterClone.Controllers
 
             return tweetsOrganized.ToList();
 
+        }
+
+        public void DeleteTweet(int ID)
+        {
+            User userInSession = HttpContext.Session.Get<User>("UsuarioLogueado");
+            
+            Tweet tweetToDelete = db.Tweets.FirstOrDefault(t => t.TweetID == ID);
+            User userToDeleteTweet = db.Users.Include(u => u.Tweets).FirstOrDefault(u => u.Mail.Equals(userInSession.Mail));
+
+            userToDeleteTweet.Tweets.Remove(tweetToDelete);
+            db.Users.Update(userToDeleteTweet);
+            db.SaveChanges();
+            
         }
 
         public string monthWithName(int month)
