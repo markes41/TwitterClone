@@ -50,8 +50,7 @@ namespace TwitterClone.Controllers
                 ViewBag.month = userInSession.Month;
                 ViewBag.year = userInSession.Year;
                 ViewBag.creationYear = userInSession.CreationYear;
-                ViewBag.creationMonth = userInSession.CreationDay;
-                ViewBag.creationDay = userInSession.CreationMonth;
+                ViewBag.creationMonth = userInSession.CreationMonth;
                 ViewBag.name = userInSession.Name;
                 ViewBag.Followers = profileOwnTweets.Followers.Count();
                 ViewBag.Following = profileOwnTweets.Following.Count();
